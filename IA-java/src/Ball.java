@@ -1,18 +1,18 @@
 public class Ball {
     private int number;
-    private int totalFrequency;
-    private int last15draws;
-    private int last10draws;
-    private int last5draws;
+    private int totalWinning;
+    private int last15drawsWinning;
+    private int last10drawsWinning;
+    private int last5drawsWinning;
     private double indexOfAcceleration;
 
-    public Ball(int number, int totalFrequency, int last15draws, int last10draws, int last5draws) {
+    public Ball(int number, int totalWinning, int last15drawsWinning, int last10drawsWinning, int last5drawsWinning) {
         this.number = number;
-        this.totalFrequency = totalFrequency;
-        this.last15draws = last15draws;
-        this.last10draws = last10draws;
-        this.last5draws = last5draws;
-        this.indexOfAcceleration = indexOfAcceleration;
+        this.totalWinning = totalWinning;
+        this.last15drawsWinning = last15drawsWinning;
+        this.last10drawsWinning = last10drawsWinning;
+        this.last5drawsWinning = last5drawsWinning;
+        this.indexOfAcceleration = last15drawsWinning/15 + 1.25 * last10drawsWinning/10 + 1.5 * last5drawsWinning/5;
     }
 
     public int getNumber() {
@@ -20,19 +20,19 @@ public class Ball {
     }
 
     public int getTotalFrequency() {
-        return totalFrequency;
+        return totalWinning;
     }
 
-    public int getLast15draws() {
-        return last15draws;
+    public int getLast15drawsWinning() {
+        return last15drawsWinning;
     }
 
-    public int getLast10draws() {
-        return last10draws;
+    public int getLast10drawsWinning() {
+        return last10drawsWinning;
     }
 
-    public int getLast5draws() {
-        return last5draws;
+    public int getLast5drawsWinning() {
+        return last5drawsWinning;
     }
 
     public double getIndexOfAcceleration() {
@@ -44,19 +44,19 @@ public class Ball {
     }
 
     public void setTotalFrequency(int totalFrequency) {
-        this.totalFrequency = totalFrequency;
+        this.totalWinning = totalFrequency;
     }
 
-    public void setLast15draws(int last15draws) {
-        this.last15draws = last15draws;
+    public void setLast15drawsWinning(int last15drawsWinning) {
+        this.last15drawsWinning = last15drawsWinning;
     }
 
-    public void setLast10draws(int last10draws) {
-        this.last10draws = last10draws;
+    public void setLast10drawsWinning(int last10drawsWinning) {
+        this.last10drawsWinning = last10drawsWinning;
     }
 
-    public void setLast5draws(int last5draws) {
-        this.last5draws = last5draws;
+    public void setLast5drawsWinning(int last5drawsWinning) {
+        this.last5drawsWinning = last5drawsWinning;
     }
 
     public void setIndexOfAcceleration(double indexOfAcceleration) {
