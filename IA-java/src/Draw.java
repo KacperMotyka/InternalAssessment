@@ -11,34 +11,30 @@ public class Draw {
         this.id = id;
     }
 
+    // GETTERS
     public int[] getResults() {
         return results;
     }
-
     public int getYear() {
         return year;
     }
-
     public int getWeek() {
         return week;
     }
-
     public int getId() {
         return id;
     }
 
+    // SETTERS
     public void setResults(int[] results) {
         this.results = results;
     }
-
     public void setYear(int year) {
         this.year = year;
     }
-
     public void setWeek(int week) {
         this.week = week;
     }
-
     public void setId(int id) {
         this.id = id;
     }
