@@ -1,7 +1,9 @@
+package com.company;
+
 public class Ball {
     private String number;
     private int totalNumberOfWinning;
-    private float totalPercentOfWinning;
+    private double totalPercentOfWinning;
     private int last15drawsWinning;
     private int last10drawsWinning;
     private int last5drawsWinning;
@@ -17,7 +19,15 @@ public class Ball {
         this.last5drawsWinning = last5drawsWinning;
         this.indexOfAcceleration = last15drawsWinning/15 + 1.25 * last10drawsWinning/10 + 1.5 * last5drawsWinning/5;
     }
-
+    public Ball (){
+        this.number = "0";
+        this.totalNumberOfWinning = 0;
+        this.totalPercentOfWinning = 0;
+        this.last15drawsWinning = 0;
+        this.last10drawsWinning = 0;
+        this.last5drawsWinning = 0;
+        this.indexOfAcceleration = 0;
+    }
 
     // GETTERS
     public String getNumber() {
@@ -26,7 +36,7 @@ public class Ball {
     public int getTotalNumberOfWinning() {
         return totalNumberOfWinning;
     }
-    public float getTotalPercentOfWinning() {
+    public double getTotalPercentOfWinning() {
         return totalPercentOfWinning;
     }
     public int getLast15drawsWinning() {
@@ -49,7 +59,7 @@ public class Ball {
     public void setTotalNumberOfWinning(int totalNumberOfWinning) {
         this.totalNumberOfWinning = totalNumberOfWinning;
     }
-    public void setTotalPercentOfWinning(float totalPercentOfWinning) {
+    public void setTotalPercentOfWinning(double totalPercentOfWinning) {
         this.totalPercentOfWinning = totalPercentOfWinning;
     }
     public void setLast15drawsWinning(int last15drawsWinning) {

@@ -1,3 +1,5 @@
+package com.company;
+
 public class Draw {
     private int [] results;
     private int year;

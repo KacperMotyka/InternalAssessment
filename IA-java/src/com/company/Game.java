@@ -1,3 +1,7 @@
+package com.company;
+
+import com.company.Ball;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -6,14 +10,14 @@ public class Game {
     private int totalNumberOfBalls;
     private int numberOfSelectedBalls;
     private ArrayList<Draw> history;
-    private Ball[] ballStatistics;
+    private ArrayList<Ball> ballStatistics;
 
     public Game(Date launchDate, int totalNumberOfBalls, int numberOfSelectedBalls, ArrayList<Draw> history) {
         this.launchDate = launchDate;
         this.totalNumberOfBalls = totalNumberOfBalls;
         this.numberOfSelectedBalls = numberOfSelectedBalls;
         this.history = history;
-        this.ballStatistics = new Ball[this.totalNumberOfBalls];
+        this.ballStatistics = new ArrayList<Ball>(this.totalNumberOfBalls);
     }
 
     // GETTERS
@@ -29,7 +33,7 @@ public class Game {
     public ArrayList<Draw> getHistory() {
         return history;
     }
-    public Ball[] getBallStatistics() { return ballStatistics; }
+    public ArrayList<Ball> getBallStatistics() { return ballStatistics; }
 
     // SETTERS
     public void setLaunchDate(Date launchDate) {
