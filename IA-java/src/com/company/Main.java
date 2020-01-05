@@ -62,11 +62,11 @@ public class Main {
         return array;
     }
     //  Entire History Winning Percent for each number = Number of draws in which the number won /  Number of all draws
-    public static float[] EHWinningPercent (Game game){
+    public static double[] EHWinningPercent (Game game){
         int n = game.getTotalNumberOfBalls();
-        float[] array = new float[n+1];
-        for (i = 1; i <= n; i++){
-            array[i] = game.getBallStatistics()[i].getTotalPercentOfWinning();
+        double[] array = new double[n+1];
+        for (int i = 1; i <= n; i++){
+            array[i] = game.getBallStatistics().get(i).getTotalPercentOfWinning();
         }
         return array;
     }
@@ -83,6 +83,7 @@ public class Main {
         array.sort(game.comparatorByPercentWinningAscending);
         return (ArrayList<Ball>) array.subList(0, 20);
     }
-    
+
+
 
 }
