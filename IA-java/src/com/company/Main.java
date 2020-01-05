@@ -9,6 +9,10 @@ public class Main {
     public static void main(String[] args) {
 
 
+    String filename = "lotto_values_l.json";
+    DataReader reader = new DataReader(filename);
+    ArrayList<Draw> history = reader.readJsonData();
+    Game lotto = new Game ("lotto", "1957-03-07", 49, 6, history);
         
     }
 
@@ -69,22 +73,14 @@ public class Main {
     // 20 most frequently winning numbers in the entire history
     public static ArrayList<Ball> twentyMostFrequentlyWinning(Game game) {
         ArrayList<Ball> array = game.getBallStatistics();
-        array.sort(new Comparator<Ball>() {
-            public int compare(Ball ball1, Ball ball2) {
-                return ball1.getTotalPercentOfWinning() > ball2.getTotalPercentOfWinning()  ? 1 : ball1.getTotalPercentOfWinning()  < ball2.getTotalPercentOfWinning()  ? -1 : 0;
-            }
-        });
+        array.sort(game.comparatorByPercentWinningDescending);
         return (ArrayList<Ball>) array.subList(0, 20);
     }
 
     // 20 least frequently winning numbers in the entire history
     public static ArrayList<Ball>  twentyLeastFrequentlyWinning(Game game) {
         ArrayList<Ball> array = game.getBallStatistics();
-        array.sort(new Comparator<Ball>() {
-            public int compare(Ball ball1, Ball ball2) {
-                return ball1.getTotalPercentOfWinning() < ball2.getTotalPercentOfWinning()  ? 1 : ball1.getTotalPercentOfWinning()  > ball2.getTotalPercentOfWinning()  ? -1 : 0;
-            }
-        });
+        array.sort(game.comparatorByPercentWinningAscending);
         return (ArrayList<Ball>) array.subList(0, 20);
     }
     
