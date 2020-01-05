@@ -85,5 +85,60 @@ public class Main {
     }
 
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Program will allow user to select a strategy:
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //    Most Frequent Random
+    //    From the 20 most frequently winning numbers program will randomly choose a set of numbers, containing 6 numbers each for Lotto and ... numbers each for EuroJackpot.
+    public static Ball[] strategy1(Game game){
+        ArrayList<Ball> balls = twentyMostFrequentlyWinning(game);
+        Random rand = new Random();
+        Ball[] result = new Ball[game.getNumberOfSelectedBalls()];
+        for (int i=0; i < result.length; i++) {
+            int index = rand.nextInt(balls.size());
+            result[i] = balls.get(index);
+            balls.remove(index);
+        }
+        return result;
+    }
+
+    //    Least Frequent Random
+    //    From the 20 least frequently winning program will randomly choose a set of numbers, containing 6 numbers each.
+    public static Ball[] strategy2(Game game){
+        ArrayList<Ball> balls = twentyLeastFrequentlyWinning(game);
+        Random randomDrawer = new Random();
+        Ball[] result = new Ball[game.getNumberOfSelectedBalls()];
+        for (int i=0; i < result.length; i++) {
+            int index = randomDrawer.nextInt(balls.size());
+            result[i] = balls.get(index);
+            balls.remove(index);
+        }
+        //return result;
+        return new Ball[1];
+    }
+
+    //    Most Frequent Random with “Acceleration”
+    //    For each number in set of “20 most frequently winning numbers” the program will calculate Index of Acceleration using the following formula:
+    //    Index of acceleration = [Winning Percent from the last 15 draws] + 1.25 * [Winning Percent from the last 10 draws] + 1.5 * [Winning Percent from the last 5 draws]
+    //    Program will then choose 6 numbers with the highest IoA.
+    public static ArrayList<Ball> strategy3(Game game){
+        ArrayList<Ball> twentyMost = twentyMostFrequentlyWinning(game);
+        twentyMost.sort(new Comparator<Ball>() {
+            public int compare(Ball ball1, Ball ball2) {
+                return ball1.getIndexOfAcceleration() > ball2.getIndexOfAcceleration()  ? 1 : ball1.getIndexOfAcceleration()  < ball2.getIndexOfAcceleration()  ? -1 : 0;
+            }
+        });
+        return (ArrayList<Ball>) twentyMost.subList(0, 6);
+    }
+
+    //    Least Frequent Random with “Acceleration”
+    //    For each number in set of “20 least frequently winning numbers” the program will calculate Index of Acceleration (IoA) using the following formula:
+    //    Index of acceleration = [Winning Percent from the last 15 draws] + 1.25 * [Winning Percent from the last 10 draws] + 1.5 * [Winning Percent from the last 5 draws]
+    //    Program will then choose 6 numbers with the highest IoA.
+    public static ArrayList<Ball> strategy4(Game game){
+        ArrayList<Ball> twentyMost = twentyLeastFrequentlyWinning(game);
+        twentyMost.sort(game.comparatorByAccelerationIndexDescending);
+        return (ArrayList<Ball>) twentyMost.subList(0, 6);
+    }
 
 }
