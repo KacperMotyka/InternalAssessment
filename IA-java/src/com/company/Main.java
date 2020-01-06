@@ -1,5 +1,13 @@
 package com.company;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
@@ -7,17 +15,93 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
+        // Read data
+        String gameName = "lotto";
+        String filename = gameName + "_history.json";
+        FileReader lottoFile = readFile (filename);
+        JSONParser jsonParser =  new JSONParser();
+        JSONArray lottoJSONList = parseFileContent (lottoFile, jsonParser);
+        ArrayList<Draw> lottoHistory = convertJSONArrayToDrawHistory(lottoJSONList);
+        Game lotto = new Game ("lotto", "1957-03-07", 49, 6, lottoHistory);
 
 
-    String filename = "lotto_values_l.json";
-    DataReader reader = new DataReader(filename);
-    ArrayList<Draw> history = reader.readJsonData();
-    Game lotto = new Game ("lotto", "1957-03-07", 49, 6, history);
-        
+        //printStrategy(strategy1(lotto));
+        //printStrategy(strategy2(lotto));
+        //printStrategy(strategy3(lotto));
+        //printStrategy(strategy4(lotto));
     }
 
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Based on the historical data program will determine:
+    //                      READ THE DATA
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+    public static FileReader readFile (String filename){
+        // FileReader to read file
+        try  {
+            FileReader reader  = new FileReader(filename);
+            return reader;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public static JSONArray parseFileContent (FileReader readFile, JSONParser jsonParser){
+        try  {
+            //JSON object to parse JSON file
+            Object obj = jsonParser.parse(readFile);
+            JSONArray jsonList = (JSONArray) obj;
+            //System.out.println(jsonList);
+            return jsonList;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public  static ArrayList<Draw> convertJSONArrayToDrawHistory(JSONArray jsonList) {
+        ArrayList<Draw> history = new ArrayList<Draw>();
+        //Iterate over array
+        for (Object element : jsonList) {
+            JSONObject jsonObject = (JSONObject) element;
+            Draw draw = convertJSONObjectToDraw(jsonObject);
+            history.add(draw);
+        }
+        return history;
+    }
+
+    public static Draw convertJSONObjectToDraw(JSONObject element) {
+        //Get date
+        String date = (String) element.get("date");
+        System.out.println(date);
+        //Get id
+        Long id = (Long)element.get("lp");
+        System.out.println(id);
+        //Get numbers
+        JSONArray jsonArray = (JSONArray) element.get("numbers");
+        System.out.println(jsonArray);
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        if (jsonArray != null) {
+            int len = jsonArray.size();
+            for (int i = 0; i < len; i++) {
+                list.add(Integer.parseInt(jsonArray.get(i).toString()));
+            }
+        }
+        // create Draw object
+        return new Draw(id, date, list);
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                      Based on the historical data program will determine:
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Entire History Winning Frequency for a number
@@ -73,7 +157,9 @@ public class Main {
     // 20 most frequently winning numbers in the entire history
     public static ArrayList<Ball> twentyMostFrequentlyWinning(Game game) {
         ArrayList<Ball> array = game.getBallStatistics();
+        System.out.println("Array size:" + array.size());
         array.sort(game.comparatorByPercentWinningDescending);
+        System.out.println("Array size:" + array.size());
         return (ArrayList<Ball>) array.subList(0, 20);
     }
 
@@ -86,8 +172,10 @@ public class Main {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Program will allow user to select a strategy:
+    //                  Program will allow user to select a strategy:
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
     //    Most Frequent Random
     //    From the 20 most frequently winning numbers program will randomly choose a set of numbers, containing 6 numbers each for Lotto and ... numbers each for EuroJackpot.
     public static Ball[] strategy1(Game game){
@@ -141,4 +229,16 @@ public class Main {
         return (ArrayList<Ball>) twentyMost.subList(0, 6);
     }
 
+    public static void printStrategy (Ball[] list){
+        for (int i = 0; i < list.length-1; i++ ){
+            System.out.print(list[i].getNumber() + ",");
+        }
+        System.out.println(list[list.length-1].getNumber());
+    }
+    public static void printStrategy (ArrayList<Ball> list){
+        for (int i = 0; i < list.size()-1; i++ ){
+            System.out.print(list.get(i).getNumber() + ",");
+        }
+        System.out.println(list.get(list.size()-1).getNumber());
+    }
 }
