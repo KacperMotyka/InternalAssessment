@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class Game {
     private String name;
-    private long launchDate;
+    private String launchDate;
     private int totalNumberOfBalls;
     private int numberOfSelectedBalls;
     private ArrayList<Draw> history;
@@ -19,7 +19,7 @@ public class Game {
 
     public Game(String name, String launchDate, int totalNumberOfBalls, int numberOfSelectedBalls, ArrayList<Draw> history) {
         this.name =  name;
-        this.launchDate = Date.parse(launchDate);
+        this.launchDate = launchDate;
         this.totalNumberOfBalls = totalNumberOfBalls;
         this.numberOfSelectedBalls = numberOfSelectedBalls;
         this.history = history;
@@ -43,7 +43,7 @@ public class Game {
     }
 
     // GETTERS
-    public long getLaunchDate() {
+    public String getLaunchDate() {
         return launchDate;
     }
     public int getTotalNumberOfBalls() {
@@ -58,7 +58,7 @@ public class Game {
     public ArrayList<Ball> getBallStatistics() { return ballStatistics; }
 
     // SETTERS
-    public void setLaunchDate(long launchDate) {
+    public void setLaunchDate(String launchDate) {
         this.launchDate = launchDate;
     }
     public void setTotalNumberOfBalls(int totalNumberOfBalls) {

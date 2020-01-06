@@ -1,20 +1,36 @@
 package com.company;
 
+import java.sql.Date;
+import java.util.ArrayList;
+
 public class Draw {
-    private int [] results;
+    private long id;
+    private String date;
     private int year;
     private int week;
-    private int id;
+    private ArrayList<Integer> results;
 
-    public Draw(int[] results, int year, int week, int id) {
+
+    public Draw(long id, String date, ArrayList<Integer> results){
+        //this.id = Integer.parseInt(id);
+        this.id = id;
+        this.date = date;
+        this.year = 0;
+        this.week = 0;
         this.results = results;
+
+
+    }
+    public Draw(long id, int year, int week, ArrayList<Integer> results) {
+        this.id = id;
+        this.date = "";
         this.year = year;
         this.week = week;
-        this.id = id;
+        this.results = results;
     }
 
     // GETTERS
-    public int[] getResults() {
+    public ArrayList<Integer> getResults() {
         return results;
     }
     public int getYear() {
@@ -23,12 +39,12 @@ public class Draw {
     public int getWeek() {
         return week;
     }
-    public int getId() {
+    public long getId() {
         return id;
     }
 
     // SETTERS
-    public void setResults(int[] results) {
+    public void setResults(ArrayList<Integer> results) {
         this.results = results;
     }
     public void setYear(int year) {
