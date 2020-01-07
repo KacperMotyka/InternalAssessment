@@ -16,14 +16,18 @@ public class Main {
 
     public static void main(String[] args) {
         // Read data
+        String path = "../";
         String gameName = "lotto";
-        String filename = gameName + "_history.json";
+        String filename = path + gameName + "_history.json";
         FileReader lottoFile = readFile (filename);
         JSONParser jsonParser =  new JSONParser();
         JSONArray lottoJSONList = parseFileContent (lottoFile, jsonParser);
         ArrayList<Draw> lottoHistory = convertJSONArrayToDrawHistory(lottoJSONList);
         Game lotto = new Game ("lotto", "1957-03-07", 49, 6, lottoHistory);
 
+        // The same with DataReader class
+        // DataReader lottoDataReader = new DataReader(gameName);
+        // ArrayList<Draw> lottoHistory = lottoDataReader.createDrawHistory();
 
         //printStrategy(strategy1(lotto));
         //printStrategy(strategy2(lotto));
@@ -101,7 +105,7 @@ public class Main {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //                      Based on the historical data program will determine:
+    //               Based on the historical data program will determine th following STATISTICS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Entire History Winning Frequency for a number
@@ -121,18 +125,18 @@ public class Main {
         Ball ball =  game.getBallStatistics().get(index);
         int[] result = new int[3];
         result[0] = ball.getLast5drawsWinning();
-        result[0] = ball.getLast10drawsWinning();
-        result[0] = ball.getLast15drawsWinning();
+        result[1] = ball.getLast10drawsWinning();
+        result[2] = ball.getLast15drawsWinning();
         return result;
     }
     // Winning Percent for the last 5, 10 and 15 draws for a number
-    public static int[] WinningPercentForLastDraws(Game game, String number) {
+    public static double[] WinningPercentForLastDraws(Game game, String number) {
         int index = Integer.parseInt(number) - 1;
         Ball ball =  game.getBallStatistics().get(index);
-        int[] result = new int[3];
+        double[] result = new double[3];
         result[0] = ball.getLast5drawsWinning()/5;
-        result[0] = ball.getLast10drawsWinning()/10;
-        result[0] = ball.getLast15drawsWinning()/15;
+        result[1] = ball.getLast10drawsWinning()/10;
+        result[2] = ball.getLast15drawsWinning()/15;
         return result;
     }
 
@@ -172,7 +176,7 @@ public class Main {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //                  Program will allow user to select a strategy:
+    //                  Program will allow user to select a STRATEGY:
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -211,11 +215,7 @@ public class Main {
     //    Program will then choose 6 numbers with the highest IoA.
     public static ArrayList<Ball> strategy3(Game game){
         ArrayList<Ball> twentyMost = twentyMostFrequentlyWinning(game);
-        twentyMost.sort(new Comparator<Ball>() {
-            public int compare(Ball ball1, Ball ball2) {
-                return ball1.getIndexOfAcceleration() > ball2.getIndexOfAcceleration()  ? 1 : ball1.getIndexOfAcceleration()  < ball2.getIndexOfAcceleration()  ? -1 : 0;
-            }
-        });
+        twentyMost.sort(game.comparatorByAccelerationIndexDescending);
         return (ArrayList<Ball>) twentyMost.subList(0, 6);
     }
 
@@ -224,9 +224,9 @@ public class Main {
     //    Index of acceleration = [Winning Percent from the last 15 draws] + 1.25 * [Winning Percent from the last 10 draws] + 1.5 * [Winning Percent from the last 5 draws]
     //    Program will then choose 6 numbers with the highest IoA.
     public static ArrayList<Ball> strategy4(Game game){
-        ArrayList<Ball> twentyMost = twentyLeastFrequentlyWinning(game);
-        twentyMost.sort(game.comparatorByAccelerationIndexDescending);
-        return (ArrayList<Ball>) twentyMost.subList(0, 6);
+        ArrayList<Ball> twentyLeast = twentyLeastFrequentlyWinning(game);
+        twentyLeast.sort(game.comparatorByAccelerationIndexDescending);
+        return (ArrayList<Ball>) twentyLeast.subList(0, 6);
     }
 
     public static void printStrategy (Ball[] list){
