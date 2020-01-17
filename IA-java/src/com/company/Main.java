@@ -9,8 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
 
@@ -29,10 +30,8 @@ public class Main {
         // DataReader lottoDataReader = new DataReader(gameName);
         // ArrayList<Draw> lottoHistory = lottoDataReader.createDrawHistory();
 
-        //printStrategy(strategy1(lotto));
-        //printStrategy(strategy2(lotto));
-        //printStrategy(strategy3(lotto));
-        //printStrategy(strategy4(lotto));
+        choiceToMethod(lotto);
+
     }
 
 
@@ -45,7 +44,7 @@ public class Main {
     public static FileReader readFile (String filename){
         // FileReader to read file
         try  {
-            FileReader reader  = new FileReader(filename);
+            FileReader reader = new FileReader(filename);
             return reader;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -53,6 +52,16 @@ public class Main {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void readFile2 (String filename){
+        try {
+            ArrayList<String> list = new ArrayList<String>();
+            list.get(10);
+        } catch (Exception bug) {
+            bug.printStackTrace();
+            System.out.println("Cos poszlo nie tak, ale to nic");
+        }
     }
     public static JSONArray parseFileContent (FileReader readFile, JSONParser jsonParser){
         try  {
@@ -85,13 +94,13 @@ public class Main {
     public static Draw convertJSONObjectToDraw(JSONObject element) {
         //Get date
         String date = (String) element.get("date");
-        System.out.println(date);
+        //System.out.println(date);
         //Get id
         Long id = (Long)element.get("lp");
-        System.out.println(id);
+        // System.out.println(id);
         //Get numbers
         JSONArray jsonArray = (JSONArray) element.get("numbers");
-        System.out.println(jsonArray);
+        // System.out.println(jsonArray);
         ArrayList<Integer> list = new ArrayList<Integer>();
         if (jsonArray != null) {
             int len = jsonArray.size();
@@ -159,19 +168,21 @@ public class Main {
         return array;
     }
     // 20 most frequently winning numbers in the entire history
-    public static ArrayList<Ball> twentyMostFrequentlyWinning(Game game) {
-        ArrayList<Ball> array = game.getBallStatistics();
-        System.out.println("Array size:" + array.size());
+    public static List<Ball> twentyMostFrequentlyWinning(Game game) {
+        ArrayList<Ball> array = (ArrayList<Ball>) game.getBallStatistics().clone();
+        // System.out.println("Array size:" + array.size());
         array.sort(game.comparatorByPercentWinningDescending);
-        System.out.println("Array size:" + array.size());
-        return (ArrayList<Ball>) array.subList(0, 20);
+        // System.out.println("Array size:" + array.size());
+        return array.subList(0, 20);
     }
 
     // 20 least frequently winning numbers in the entire history
-    public static ArrayList<Ball>  twentyLeastFrequentlyWinning(Game game) {
-        ArrayList<Ball> array = game.getBallStatistics();
+    public static List<Ball>  twentyLeastFrequentlyWinning(Game game) {
+        ArrayList<Ball> array = (ArrayList<Ball>) game.getBallStatistics().clone();
+        // System.out.println("Array size:" + array.size());
         array.sort(game.comparatorByPercentWinningAscending);
-        return (ArrayList<Ball>) array.subList(0, 20);
+        // System.out.println("Array size:" + array.size());
+        return array.subList(0, 20);
     }
 
 
@@ -182,8 +193,9 @@ public class Main {
 
     //    Most Frequent Random
     //    From the 20 most frequently winning numbers program will randomly choose a set of numbers, containing 6 numbers each for Lotto and ... numbers each for EuroJackpot.
-    public static Ball[] strategy1(Game game){
-        ArrayList<Ball> balls = twentyMostFrequentlyWinning(game);
+    public static Ball[] calculateStrategy1(Game game){
+        List<Ball> balls = twentyMostFrequentlyWinning(game);
+        // printArray(balls);
         Random rand = new Random();
         Ball[] result = new Ball[game.getNumberOfSelectedBalls()];
         for (int i=0; i < result.length; i++) {
@@ -196,8 +208,9 @@ public class Main {
 
     //    Least Frequent Random
     //    From the 20 least frequently winning program will randomly choose a set of numbers, containing 6 numbers each.
-    public static Ball[] strategy2(Game game){
-        ArrayList<Ball> balls = twentyLeastFrequentlyWinning(game);
+    public static Ball[] calculateStrategy2(Game game){
+        List<Ball> balls = twentyLeastFrequentlyWinning(game);
+        // printArray(balls);
         Random randomDrawer = new Random();
         Ball[] result = new Ball[game.getNumberOfSelectedBalls()];
         for (int i=0; i < result.length; i++) {
@@ -205,40 +218,79 @@ public class Main {
             result[i] = balls.get(index);
             balls.remove(index);
         }
-        //return result;
-        return new Ball[1];
+        return result;
     }
 
     //    Most Frequent Random with “Acceleration”
     //    For each number in set of “20 most frequently winning numbers” the program will calculate Index of Acceleration using the following formula:
     //    Index of acceleration = [Winning Percent from the last 15 draws] + 1.25 * [Winning Percent from the last 10 draws] + 1.5 * [Winning Percent from the last 5 draws]
     //    Program will then choose 6 numbers with the highest IoA.
-    public static ArrayList<Ball> strategy3(Game game){
-        ArrayList<Ball> twentyMost = twentyMostFrequentlyWinning(game);
+    public static List<Ball> calculateStrategy3(Game game){
+        List<Ball> twentyMost = twentyMostFrequentlyWinning(game);
+        //printArray(twentyMost);
         twentyMost.sort(game.comparatorByAccelerationIndexDescending);
-        return (ArrayList<Ball>) twentyMost.subList(0, 6);
+        return twentyMost.subList(0, 6);
     }
 
     //    Least Frequent Random with “Acceleration”
     //    For each number in set of “20 least frequently winning numbers” the program will calculate Index of Acceleration (IoA) using the following formula:
     //    Index of acceleration = [Winning Percent from the last 15 draws] + 1.25 * [Winning Percent from the last 10 draws] + 1.5 * [Winning Percent from the last 5 draws]
     //    Program will then choose 6 numbers with the highest IoA.
-    public static ArrayList<Ball> strategy4(Game game){
-        ArrayList<Ball> twentyLeast = twentyLeastFrequentlyWinning(game);
+    public static List<Ball> calculateStrategy4(Game game){
+        List<Ball> twentyLeast = twentyLeastFrequentlyWinning(game);
+        //printArray(twentyLeast);
         twentyLeast.sort(game.comparatorByAccelerationIndexDescending);
-        return (ArrayList<Ball>) twentyLeast.subList(0, 6);
+        return twentyLeast.subList(0, 6);
     }
 
-    public static void printStrategy (Ball[] list){
+    public static void printArray(Ball[] list){
         for (int i = 0; i < list.length-1; i++ ){
             System.out.print(list[i].getNumber() + ",");
         }
         System.out.println(list[list.length-1].getNumber());
     }
-    public static void printStrategy (ArrayList<Ball> list){
+    public static void printArray(List<Ball> list){
         for (int i = 0; i < list.size()-1; i++ ){
             System.out.print(list.get(i).getNumber() + ",");
         }
         System.out.println(list.get(list.size()-1).getNumber());
+    }
+
+
+    public static int menuChooseStrategy(){
+        Scanner scanner = new Scanner(System.in);
+        String massage = "Choose a strategy: " +
+                "\nStrategy 1: press: 1 " +
+                "\nStrategy 2: press: 2 " +
+                "\nStrategy 3: press: 3 " +
+                "\nStrategy 4: press: 4 ";
+        System.out.println(massage);
+        int choice = scanner.nextInt();
+        return choice;
+    }
+
+    public static void choiceToMethod(Game currentGame){
+        int strategy = menuChooseStrategy();
+        switch (strategy) {
+            case 1:
+                System.out.println("Results strategy 1");
+                Ball[] results1 = calculateStrategy1(currentGame);
+                printArray(results1);
+                break;
+            case 2:
+                System.out.println("Results strategy 2");
+                Ball[] results2 = calculateStrategy2(currentGame);
+                printArray(results2);
+                break;
+            case 3:
+                System.out.println("Results strategy 3");
+                List<Ball> results3 = calculateStrategy3(currentGame);
+                printArray(results3);
+                break;
+            case 4:
+                System.out.println("Results strategy 4");
+                printArray(calculateStrategy4(currentGame));
+                break;
+        }
     }
 }

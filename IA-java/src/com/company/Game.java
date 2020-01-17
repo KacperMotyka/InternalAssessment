@@ -32,23 +32,7 @@ public class Game {
         this.totalNumberOfBalls = totalNumberOfBalls;
         this.numberOfSelectedBalls = numberOfSelectedBalls;
         this.drawHistory = history;
-        /*this.comparatorByPercentWinningAscending = new Comparator<Ball>() {
-            public int compare(Ball ball1, Ball ball2) {
-                return ball1.getTotalPercentOfWinning() < ball2.getTotalPercentOfWinning()  ? 1 : ball1.getTotalPercentOfWinning()  > ball2.getTotalPercentOfWinning()  ? -1 : 0;
-            }
-        };
-        this.comparatorByPercentWinningDescending = new Comparator<Ball>() {
-            public int compare(Ball ball1, Ball ball2) {
-                return ball1.getTotalPercentOfWinning() > ball2.getTotalPercentOfWinning()  ? 1 : ball1.getTotalPercentOfWinning()  < ball2.getTotalPercentOfWinning()  ? -1 : 0;
-            }
-        };
-
-        this.comparatorByAccelerationIndexDescending = new Comparator<Ball>() {
-            public int compare(Ball ball1, Ball ball2) {
-                return ball1.getIndexOfAcceleration() > ball2.getIndexOfAcceleration()  ? 1 : ball1.getIndexOfAcceleration()  < ball2.getIndexOfAcceleration()  ? -1 : 0;
-            }
-        };*/
-        recalculBallsStatistics ();
+        recalculateBallsStatistics();
     }
 
     // GETTERS
@@ -72,20 +56,20 @@ public class Game {
     }
     public void setHistory(ArrayList<Draw> history) {
         this.drawHistory = history;
-        recalculBallsStatistics ();
+        recalculateBallsStatistics();
     }
 
-    private void recalculBallsStatistics (){
+    private void recalculateBallsStatistics(){
         this.ballStatistics = new ArrayList<Ball>(50);
         for (Integer i = 0; i <= 49; i++){
             ballStatistics.add(i, new Ball(i.toString()));
         }
-        recalculTotal();
-        recalculLastDraws();
-        recalculAccelerationIndex();
+        recalculateTotal();
+        recalculateLastDraws();
+        recalculateAccelerationIndex();
 
     }
-    private void recalculTotal(){
+    private void recalculateTotal(){
         for (Draw draw : this.drawHistory){
             for (int number : draw.getResults()) {
                 Ball ball = ballStatistics.get(number);
@@ -96,7 +80,7 @@ public class Game {
             ball.setTotalPercentOfWinning(ball.getTotalNumberOfWinning()/this.getHistory().size());
         }
     }
-    private void recalculLastDraws(){
+    private void recalculateLastDraws(){
 
         for (Draw draw : this.drawHistory.subList(0,5)){
             for (int number : draw.getResults()) {
@@ -118,7 +102,7 @@ public class Game {
         }
 
     }
-    private void recalculAccelerationIndex(){
+    private void recalculateAccelerationIndex(){
         for (Ball ball : ballStatistics){
             ball.updateIndexOfAcceleration();
         }
