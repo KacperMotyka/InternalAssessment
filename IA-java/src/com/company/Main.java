@@ -24,7 +24,7 @@ public class Main {
         JSONParser jsonParser =  new JSONParser();
         JSONArray lottoJSONList = parseFileContent (lottoFile, jsonParser);
         ArrayList<Draw> lottoHistory = convertJSONArrayToDrawHistory(lottoJSONList);
-        
+
         Game lotto = new Game ("lotto", "1957-03-07", 49, 6, lottoHistory);
 
         // The same with DataReader class
@@ -93,7 +93,7 @@ public class Main {
         String date = (String) element.get("date");
         //System.out.println(date);
         //Get id
-        Long id = (Long)element.get("lp");
+        Long id = (Long)element.get("id");
         // System.out.println(id);
         //Get numbers
         JSONArray jsonArray = (JSONArray) element.get("numbers");
