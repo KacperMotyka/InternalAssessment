@@ -24,6 +24,7 @@ public class Main {
         JSONParser jsonParser =  new JSONParser();
         JSONArray lottoJSONList = parseFileContent (lottoFile, jsonParser);
         ArrayList<Draw> lottoHistory = convertJSONArrayToDrawHistory(lottoJSONList);
+        
         Game lotto = new Game ("lotto", "1957-03-07", 49, 6, lottoHistory);
 
         // The same with DataReader class
@@ -31,15 +32,11 @@ public class Main {
         // ArrayList<Draw> lottoHistory = lottoDataReader.createDrawHistory();
 
         choiceToMethod(lotto);
-
     }
 
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //                      READ THE DATA
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // READ THE DATA
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static FileReader readFile (String filename){
         // FileReader to read file
@@ -111,151 +108,9 @@ public class Main {
         // create Draw object
         return new Draw(id, date, list);
     }
-
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //               Based on the historical data program will determine th following STATISTICS
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // Entire History Winning Frequency for a number
-    public static double EHWinningFrequency (Game game, String number){
-        int index = Integer.parseInt(number) - 1;
-        return game.getBallStatistics().get(index).getTotalNumberOfWinning();
-    }
-    //  Entire History Winning Percent for a number = Number of draws in which the number won /  Number of all draws
-    public static double EHWinningPercent (Game game, String number){
-        int index = Integer.parseInt(number) - 1;
-        return game.getBallStatistics().get(index).getTotalPercentOfWinning();
-    }
-
-    // Winning Frequency for the last 5, 10 and 15 draws for a number
-    public static int[] WinningFrequencyForLastDraws(Game game, String number) {
-        int index = Integer.parseInt(number) - 1;
-        Ball ball =  game.getBallStatistics().get(index);
-        int[] result = new int[3];
-        result[0] = ball.getLast5drawsWinning();
-        result[1] = ball.getLast10drawsWinning();
-        result[2] = ball.getLast15drawsWinning();
-        return result;
-    }
-    // Winning Percent for the last 5, 10 and 15 draws for a number
-    public static double[] WinningPercentForLastDraws(Game game, String number) {
-        int index = Integer.parseInt(number) - 1;
-        Ball ball =  game.getBallStatistics().get(index);
-        double[] result = new double[3];
-        result[0] = ball.getLast5drawsWinning()/5;
-        result[1] = ball.getLast10drawsWinning()/10;
-        result[2] = ball.getLast15drawsWinning()/15;
-        return result;
-    }
-
-    // Entire History Winning Frequency for each number
-    public static int[] EHWinningFrequency (Game game){
-        int n = game.getTotalNumberOfBalls();
-        int[] array = new int[n+1];
-        for (int index = 1; index <= n; index++){
-            array[index] = game.getBallStatistics().get(index).getTotalNumberOfWinning();
-        }
-        return array;
-    }
-    //  Entire History Winning Percent for each number = Number of draws in which the number won /  Number of all draws
-    public static double[] EHWinningPercent (Game game){
-        int n = game.getTotalNumberOfBalls();
-        double[] array = new double[n+1];
-        for (int i = 1; i <= n; i++){
-            array[i] = game.getBallStatistics().get(i).getTotalPercentOfWinning();
-        }
-        return array;
-    }
-    // 20 most frequently winning numbers in the entire history
-    public static List<Ball> twentyMostFrequentlyWinning(Game game) {
-        ArrayList<Ball> array = (ArrayList<Ball>) game.getBallStatistics().clone();
-        // System.out.println("Array size:" + array.size());
-        array.sort(game.comparatorByPercentWinningDescending);
-        // System.out.println("Array size:" + array.size());
-        return array.subList(0, 20);
-    }
-
-    // 20 least frequently winning numbers in the entire history
-    public static List<Ball>  twentyLeastFrequentlyWinning(Game game) {
-        ArrayList<Ball> array = (ArrayList<Ball>) game.getBallStatistics().clone();
-        // System.out.println("Array size:" + array.size());
-        array.sort(game.comparatorByPercentWinningAscending);
-        // System.out.println("Array size:" + array.size());
-        return array.subList(0, 20);
-    }
-
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //                  Program will allow user to select a STRATEGY:
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-    //    Most Frequent Random
-    //    From the 20 most frequently winning numbers program will randomly choose a set of numbers, containing 6 numbers each for Lotto and ... numbers each for EuroJackpot.
-    public static Ball[] calculateStrategy1(Game game){
-        List<Ball> balls = twentyMostFrequentlyWinning(game);
-        // printArray(balls);
-        Random rand = new Random();
-        Ball[] result = new Ball[game.getNumberOfSelectedBalls()];
-        for (int i=0; i < result.length; i++) {
-            int index = rand.nextInt(balls.size());
-            result[i] = balls.get(index);
-            balls.remove(index);
-        }
-        return result;
-    }
-
-    //    Least Frequent Random
-    //    From the 20 least frequently winning program will randomly choose a set of numbers, containing 6 numbers each.
-    public static Ball[] calculateStrategy2(Game game){
-        List<Ball> balls = twentyLeastFrequentlyWinning(game);
-        // printArray(balls);
-        Random randomDrawer = new Random();
-        Ball[] result = new Ball[game.getNumberOfSelectedBalls()];
-        for (int i=0; i < result.length; i++) {
-            int index = randomDrawer.nextInt(balls.size());
-            result[i] = balls.get(index);
-            balls.remove(index);
-        }
-        return result;
-    }
-
-    //    Most Frequent Random with “Acceleration”
-    //    For each number in set of “20 most frequently winning numbers” the program will calculate Index of Acceleration using the following formula:
-    //    Index of acceleration = [Winning Percent from the last 15 draws] + 1.25 * [Winning Percent from the last 10 draws] + 1.5 * [Winning Percent from the last 5 draws]
-    //    Program will then choose 6 numbers with the highest IoA.
-    public static List<Ball> calculateStrategy3(Game game){
-        List<Ball> twentyMost = twentyMostFrequentlyWinning(game);
-        //printArray(twentyMost);
-        twentyMost.sort(game.comparatorByAccelerationIndexDescending);
-        return twentyMost.subList(0, 6);
-    }
-
-    //    Least Frequent Random with “Acceleration”
-    //    For each number in set of “20 least frequently winning numbers” the program will calculate Index of Acceleration (IoA) using the following formula:
-    //    Index of acceleration = [Winning Percent from the last 15 draws] + 1.25 * [Winning Percent from the last 10 draws] + 1.5 * [Winning Percent from the last 5 draws]
-    //    Program will then choose 6 numbers with the highest IoA.
-    public static List<Ball> calculateStrategy4(Game game){
-        List<Ball> twentyLeast = twentyLeastFrequentlyWinning(game);
-        //printArray(twentyLeast);
-        twentyLeast.sort(game.comparatorByAccelerationIndexDescending);
-        return twentyLeast.subList(0, 6);
-    }
-
-    public static void printArray(Ball[] list){
-        for (int i = 0; i < list.length-1; i++ ){
-            System.out.print(list[i].getNumber() + ",");
-        }
-        System.out.println(list[list.length-1].getNumber());
-    }
-    public static void printArray(List<Ball> list){
-        for (int i = 0; i < list.size()-1; i++ ){
-            System.out.print(list.get(i).getNumber() + ",");
-        }
-        System.out.println(list.get(list.size()-1).getNumber());
-    }
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // MENUS
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static int menuChooseStrategy(){
         Scanner scanner = new Scanner(System.in);
@@ -274,23 +129,40 @@ public class Main {
         switch (strategy) {
             case 1:
                 System.out.println("Results strategy 1");
-                Ball[] results1 = calculateStrategy1(currentGame);
+                Ball[] results1 = currentGame.calculateStrategy1();
                 printArray(results1);
                 break;
             case 2:
                 System.out.println("Results strategy 2");
-                Ball[] results2 = calculateStrategy2(currentGame);
+                Ball[] results2 = currentGame.calculateStrategy2();
                 printArray(results2);
                 break;
             case 3:
                 System.out.println("Results strategy 3");
-                List<Ball> results3 = calculateStrategy3(currentGame);
+                List<Ball> results3 = currentGame.calculateStrategy3();
                 printArray(results3);
                 break;
             case 4:
                 System.out.println("Results strategy 4");
-                printArray(calculateStrategy4(currentGame));
+                printArray(currentGame.calculateStrategy4());
                 break;
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // PRINTING
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static void printArray(Ball[] list){
+        for (int i = 0; i < list.length-1; i++ ){
+            System.out.print(list[i].getNumber() + ",");
+        }
+        System.out.println(list[list.length-1].getNumber());
+    }
+    public static void printArray(List<Ball> list){
+        for (int i = 0; i < list.size()-1; i++ ){
+            System.out.print(list.get(i).getNumber() + ",");
+        }
+        System.out.println(list.get(list.size()-1).getNumber());
     }
 }

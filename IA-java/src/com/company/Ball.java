@@ -19,6 +19,7 @@ public class Ball {
         this.last5drawsWinning = last5drawsWinning;
         this.indexOfAcceleration = last15drawsWinning/15 + 1.25 * last10drawsWinning/10 + 1.5 * last5drawsWinning/5;
     }
+    // CONSTRUCTOR
     public Ball (String number){
         this.number = number;
         this.totalNumberOfWinning = 0;
@@ -74,7 +75,6 @@ public class Ball {
         this.last5drawsWinning = last5drawsWinning;
         updateIndexOfAcceleration();
     }
-
 
     // METHODS
     public void updateIndexOfAcceleration() {
