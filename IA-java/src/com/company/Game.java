@@ -199,7 +199,7 @@ public class Game {
     //    Most Frequent Random
     //    From the 20 most frequently winning numbers program will randomly choose a set of numbers, containing 6 numbers each for Lotto and ... numbers each for EuroJackpot.
     public Ball[] calculateStrategy1(){
-        List<Ball> balls = twentyMostFrequentlyWinning();
+        List<Ball> balls = this.twentyMostFrequentlyWinning();
         // printArray(balls);
         Random rand = new Random();
         Ball[] result = new Ball[this.numberOfSelectedBalls];
@@ -214,7 +214,7 @@ public class Game {
     //    Least Frequent Random
     //    From the 20 least frequently winning program will randomly choose a set of numbers, containing 6 numbers each.
     public Ball[] calculateStrategy2(){
-        List<Ball> balls = twentyLeastFrequentlyWinning();
+        List<Ball> balls = this.twentyLeastFrequentlyWinning();
         // printArray(balls);
         Random randomDrawer = new Random();
         Ball[] result = new Ball[this.numberOfSelectedBalls];
@@ -231,10 +231,10 @@ public class Game {
     //    Index of acceleration = [Winning Percent from the last 15 draws] + 1.25 * [Winning Percent from the last 10 draws] + 1.5 * [Winning Percent from the last 5 draws]
     //    Program will then choose 6 numbers with the highest IoA.
     public List<Ball> calculateStrategy3(){
-        List<Ball> twentyMost = twentyMostFrequentlyWinning();
+        List<Ball> twentyMost = this.twentyMostFrequentlyWinning();
         //printArray(twentyMost);
         twentyMost.sort(this.comparatorByAccelerationIndexDescending);
-        return twentyMost.subList(0, 6);
+        return twentyMost.subList(0, this.numberOfSelectedBalls);
     }
 
     //    Least Frequent Random with “Acceleration”
@@ -242,9 +242,9 @@ public class Game {
     //    Index of acceleration = [Winning Percent from the last 15 draws] + 1.25 * [Winning Percent from the last 10 draws] + 1.5 * [Winning Percent from the last 5 draws]
     //    Program will then choose 6 numbers with the highest IoA.
     public List<Ball> calculateStrategy4(){
-        List<Ball> twentyLeast = twentyLeastFrequentlyWinning();
+        List<Ball> twentyLeast = this.twentyLeastFrequentlyWinning();
         //printArray(twentyLeast);
         twentyLeast.sort(this.comparatorByAccelerationIndexDescending);
-        return twentyLeast.subList(0, 6);
+        return twentyLeast.subList(0, this.numberOfSelectedBalls);
     }
 }

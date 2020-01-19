@@ -76,6 +76,19 @@ public class Ball {
         updateIndexOfAcceleration();
     }
 
+    @Override
+    public String toString() {
+        return "Ball{" +
+                "number='" + number + '\'' +
+                ", totalNumberOfWinning=" + totalNumberOfWinning +
+                ", totalPercentOfWinning=" + totalPercentOfWinning +
+                ", last15drawsWinning=" + last15drawsWinning +
+                ", last10drawsWinning=" + last10drawsWinning +
+                ", last5drawsWinning=" + last5drawsWinning +
+                ", indexOfAcceleration=" + indexOfAcceleration +
+                '}';
+    }
+
     // METHODS
     public void updateIndexOfAcceleration() {
         this.indexOfAcceleration = last15drawsWinning/15 + 1.25 * last10drawsWinning/10 + 1.5 * last5drawsWinning/5;
