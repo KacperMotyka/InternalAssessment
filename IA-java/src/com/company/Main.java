@@ -17,21 +17,29 @@ public class Main {
 
     public static void main(String[] args) {
         // Read data
-        String path = "../";
-        String gameName = "lotto";
-        String filename = path + gameName + "_history.json";
-        FileReader lottoFile = readFile (filename);
+        String path = "";
         JSONParser jsonParser =  new JSONParser();
+
+        String gameOneName = "lotto";
+        String fileNameOne = path + gameOneName + "_history.json";
+        FileReader lottoFile = readFile (fileNameOne);
         JSONArray lottoJSONList = parseFileContent (lottoFile, jsonParser);
         ArrayList<Draw> lottoHistory = convertJSONArrayToDrawHistory(lottoJSONList);
 
+        String gameTwoName = "mini-lotto";
+        String fileNameTwo = path + gameTwoName + "_history.json";
+        FileReader miniLottoFile = readFile (fileNameTwo);
+        JSONArray miniLottoJSONList = parseFileContent (miniLottoFile, jsonParser);
+        ArrayList<Draw> miniLottoHistory = convertJSONArrayToDrawHistory(miniLottoJSONList);
+
         Game lotto = new Game ("lotto", "1957-03-07", 49, 6, lottoHistory);
+        Game miniLotto = new Game ("miniLotto", "30-12-1981", 42, 5, miniLottoHistory);
 
         // The same with DataReader class
-        // DataReader lottoDataReader = new DataReader(gameName);
+        // DataReader lottoDataReader = new DataReader(gameOneName);
         // ArrayList<Draw> lottoHistory = lottoDataReader.createDrawHistory();
 
-        choiceToMethod(lotto);
+        menuGame(lotto, miniLotto);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -94,10 +102,10 @@ public class Main {
         //System.out.println(date);
         //Get id
         Long id = (Long)element.get("id");
-        // System.out.println(id);
+        //System.out.println(id);
         //Get numbers
         JSONArray jsonArray = (JSONArray) element.get("numbers");
-        // System.out.println(jsonArray);
+        //System.out.println(jsonArray);
         ArrayList<Integer> list = new ArrayList<Integer>();
         if (jsonArray != null) {
             int len = jsonArray.size();
@@ -108,23 +116,34 @@ public class Main {
         // create Draw object
         return new Draw(id, date, list);
     }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // MENUS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static int menuChooseStrategy(){
+    public static void menuGame(Game lotto, Game miniLotto){
+        int game = menuChooseGame();
+
+        switch (game) {
+            case 1:
+                menuStrategy(lotto);
+                break;
+            case 2:
+                menuStrategy(miniLotto);
+                break;
+        }
+    }
+    public static int menuChooseGame(){
         Scanner scanner = new Scanner(System.in);
-        String massage = "Choose a strategy: " +
-                "\nStrategy 1: press: 1 " +
-                "\nStrategy 2: press: 2 " +
-                "\nStrategy 3: press: 3 " +
-                "\nStrategy 4: press: 4 ";
+        String massage = "Choose a Game: " +
+                "\nLotto - press: 1 " +
+                "\nMiniLotto - press: 2 ";
         System.out.println(massage);
         int choice = scanner.nextInt();
         return choice;
     }
 
-    public static void choiceToMethod(Game currentGame){
+    public static void menuStrategy(Game currentGame){
         int strategy = menuChooseStrategy();
         switch (strategy) {
             case 1:
@@ -136,6 +155,7 @@ public class Main {
                 System.out.println("Results strategy 2");
                 Ball[] results2 = currentGame.calculateStrategy2();
                 printArray(results2);
+
                 break;
             case 3:
                 System.out.println("Results strategy 3");
@@ -146,8 +166,33 @@ public class Main {
                 System.out.println("Results strategy 4");
                 printArray(currentGame.calculateStrategy4());
                 break;
+            case 5:
+                System.out.println("Twenty most frequently winning");
+                List<Ball> balls1 = currentGame.twentyMostFrequentlyWinning();
+                printArray(balls1, "to string");
+                break;
+            case 6:
+                System.out.println("Twenty least frequently winning");
+                List<Ball> balls2 = currentGame.twentyLeastFrequentlyWinning();
+                printArray(balls2, "to string");
+                break;
         }
     }
+
+    public static int menuChooseStrategy(){
+        Scanner scanner = new Scanner(System.in);
+        String massage = "What do you want to see?: " +
+                "\nStrategy 1 - press: 1 " +
+                "\nStrategy 2 - press: 2 " +
+                "\nStrategy 3 - press: 3 " +
+                "\nStrategy 2 - press: 4 " +
+                "\nTwenty most frequently winning - press: 5 " +
+                "\nTwenty least frequently winning - press: 6 ";
+        System.out.println(massage);
+        int choice = scanner.nextInt();
+        return choice;
+    }
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRINTING
@@ -159,10 +204,19 @@ public class Main {
         }
         System.out.println(list[list.length-1].getNumber());
     }
+
     public static void printArray(List<Ball> list){
         for (int i = 0; i < list.size()-1; i++ ){
             System.out.print(list.get(i).getNumber() + ",");
         }
         System.out.println(list.get(list.size()-1).getNumber());
+    }
+
+    public static void printArray(List<Ball> list, String attribute){
+        if (attribute.equals("to string")) {
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println(list.get(i).toString());
+            }
+        }
     }
 }
