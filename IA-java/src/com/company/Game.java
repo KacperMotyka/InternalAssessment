@@ -71,8 +71,8 @@ public class Game {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void recalculateBallsStatistics(){
-        this.ballStatistics = new ArrayList<Ball>(50);
-        for (Integer i = 0; i <= 49; i++){
+        this.ballStatistics = new ArrayList<Ball>(this.totalNumberOfBalls + 1);
+        for (Integer i = 0; i <= this.totalNumberOfBalls; i++){
             ballStatistics.add(i, new Ball(i.toString()));
         }
         recalculateTotal();
@@ -87,8 +87,11 @@ public class Game {
                 ball.setTotalNumberOfWinning(ball.getTotalNumberOfWinning() + 1);
             }
         }
-        for (Ball ball : ballStatistics){
-            ball.setTotalPercentOfWinning(ball.getTotalNumberOfWinning()/this.getHistory().size());
+
+        for (int i = 1; i < this.ballStatistics.size(); i++) {
+            Ball ball = this.ballStatistics.get(i);
+            double d = this.getHistory().size();
+            ball.setTotalPercentOfWinning(ball.getTotalNumberOfWinning()*100/d);
         }
     }
 
@@ -157,9 +160,9 @@ public class Game {
     }
 
     // Entire History Winning Frequency for each number
-    public int[] EHWinningFrequency (){
+    public double[] EHWinningFrequency (){
         int n = this.totalNumberOfBalls;
-        int[] array = new int[n+1];
+        double[] array = new double[n+1];
         for (int index = 1; index <= n; index++){
             array[index] = this.ballStatistics.get(index).getTotalNumberOfWinning();
         }

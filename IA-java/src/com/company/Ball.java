@@ -2,7 +2,7 @@ package com.company;
 
 public class Ball {
     private String number;
-    private int totalNumberOfWinning;
+    private double totalNumberOfWinning;
     private double totalPercentOfWinning;
     private int last15drawsWinning;
     private int last10drawsWinning;
@@ -34,7 +34,7 @@ public class Ball {
     public String getNumber() {
         return number;
     }
-    public int getTotalNumberOfWinning() {
+    public double getTotalNumberOfWinning() {
         return totalNumberOfWinning;
     }
     public double getTotalPercentOfWinning() {
@@ -57,7 +57,7 @@ public class Ball {
     public void setNumber(String number) {
         this.number = number;
     }
-    public void setTotalNumberOfWinning(int totalNumberOfWinning) {
+    public void setTotalNumberOfWinning(double totalNumberOfWinning) {
         this.totalNumberOfWinning = totalNumberOfWinning;
     }
     public void setTotalPercentOfWinning(double totalPercentOfWinning) {
