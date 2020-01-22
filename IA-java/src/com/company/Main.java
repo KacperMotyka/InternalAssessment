@@ -18,37 +18,16 @@ public class Main {
     public static void main(String[] args) {
 
         // REFRESH WEB DATA
-        /*
-        // refresh lotto
-        String shellScriptName =  "../download_lotto.sh";
-        String pythonScriptName =  "../extract_lotto.py";
-        String[] cmd1 = {"sh", shellScriptName};
-        String[] cmd2 = {"python", pythonScriptName};
-        Runtime rt = Runtime.getRuntime();
-        try {
-            Process pr = rt.exec(cmd1);
-        } catch (IOException e){
-            System.out.println("Problem executing command: "+ cmd1[0] + " " + cmd1[1]);
-        }
-        // refresh mini lotto 
-        shellScriptName =  "../download_lotto.sh";
-        pythonScriptName =  "../extract_lotto.py";
-        String[] cmd3 = {"sh", shellScriptName};
-        String[] cmd4 = {"python", pythonScriptName};
-        rt = Runtime.getRuntime();
-        try {
-            Process pr = rt.exec(cmd3);
-        } catch (IOException e){
-            System.out.println("Problem executing command: "+ cmd3[0] + " " + cmd3[1]);
-        }
         //DataDownloader.refreshHTMLFilesJava("lotto");
         //DataDownloader.refreshHTMLFilesJava("mini-lotto");
         //DataDownloader.extractDataFromHTML("lotto");
         //DataDownloader.extractDataFromHTML("mini");
         //DataDownloader.refreshJSONData("lotto");
         //DataDownloader.refreshJSONData("mini");
-        */
 
+
+
+        /*
         // READ JSON DATA
         String path = "";
         JSONParser jsonParser =  new JSONParser();
@@ -69,13 +48,13 @@ public class Main {
         Game miniLotto = new Game ("miniLotto", "30-12-1981", 42, 5, miniLottoHistory);
 
         menuGame(lotto, miniLotto);
-
-
+        */
 
 
         // The same with DataReader class
         // DataReader lottoDataReader = new DataReader(gameOneName);
         // ArrayList<Draw> lottoHistory = lottoDataReader.createDrawHistory();
+        
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
