@@ -54,7 +54,7 @@ public class Main {
         // The same with DataReader class
         // DataReader lottoDataReader = new DataReader(gameOneName);
         // ArrayList<Draw> lottoHistory = lottoDataReader.createDrawHistory();
-        
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

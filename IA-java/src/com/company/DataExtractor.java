@@ -10,7 +10,7 @@ public class DataExtractor {
 
     public static void extractDataFromHTML_Python(String gameName)  {
 
-        String pythonScriptName = pythonFilesPath + "extract_" + gameName + ".py";
+        String pythonScriptName = pythonFilesPath + "extract-" + gameName + ".py";
         String[] command = {"python", pythonScriptName};
 
         try {

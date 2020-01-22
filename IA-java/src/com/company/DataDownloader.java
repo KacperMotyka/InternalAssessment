@@ -9,7 +9,7 @@ public class DataDownloader {
 
     public static void refreshHTMLFilesShell(String gameName) throws Exception {
 
-        String shellScriptName = shellFilesPath + "download_" + gameName + ".sh";
+        String shellScriptName = shellFilesPath + "download-" + gameName + ".sh";
         String[] command = {"sh", shellScriptName};
         try {
             Runtime rt = Runtime.getRuntime();

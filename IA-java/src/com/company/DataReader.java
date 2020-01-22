@@ -25,7 +25,7 @@ public class DataReader {
     public DataReader(String gameName) {
 
         this.gameName = gameName;
-        this.fileName = jsonFilesPath + gameName + "_history.json";
+        this.fileName = jsonFilesPath + gameName + "-history.json";
     }
 
 
