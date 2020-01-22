@@ -16,106 +16,73 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        // Read data
+
+        // REFRESH WEB DATA
+        /*
+        // refresh lotto
+        String shellScriptName =  "../download_lotto.sh";
+        String pythonScriptName =  "../extract_lotto.py";
+        String[] cmd1 = {"sh", shellScriptName};
+        String[] cmd2 = {"python", pythonScriptName};
+        Runtime rt = Runtime.getRuntime();
+        try {
+            Process pr = rt.exec(cmd1);
+        } catch (IOException e){
+            System.out.println("Problem executing command: "+ cmd1[0] + " " + cmd1[1]);
+        }
+        // refresh mini lotto 
+        shellScriptName =  "../download_lotto.sh";
+        pythonScriptName =  "../extract_lotto.py";
+        String[] cmd3 = {"sh", shellScriptName};
+        String[] cmd4 = {"python", pythonScriptName};
+        rt = Runtime.getRuntime();
+        try {
+            Process pr = rt.exec(cmd3);
+        } catch (IOException e){
+            System.out.println("Problem executing command: "+ cmd3[0] + " " + cmd3[1]);
+        }
+        //DataDownloader.refreshHTMLFilesJava("lotto");
+        //DataDownloader.refreshHTMLFilesJava("mini-lotto");
+        //DataDownloader.extractDataFromHTML("lotto");
+        //DataDownloader.extractDataFromHTML("mini");
+        //DataDownloader.refreshJSONData("lotto");
+        //DataDownloader.refreshJSONData("mini");
+        */
+
+        // READ JSON DATA
         String path = "";
         JSONParser jsonParser =  new JSONParser();
 
         String gameOneName = "lotto";
         String fileNameOne = path + gameOneName + "_history.json";
-        FileReader lottoFile = readFile (fileNameOne);
-        JSONArray lottoJSONList = parseFileContent (lottoFile, jsonParser);
-        ArrayList<Draw> lottoHistory = convertJSONArrayToDrawHistory(lottoJSONList);
+        FileReader lottoFile = DataReader.readFile (fileNameOne);
+        JSONArray lottoJSONList = DataReader.parseFileContent (lottoFile, jsonParser);
+        ArrayList<Draw> lottoHistory = DataReader.convertJSONArrayToDrawHistory(lottoJSONList);
 
         String gameTwoName = "mini-lotto";
         String fileNameTwo = path + gameTwoName + "_history.json";
-        FileReader miniLottoFile = readFile (fileNameTwo);
-        JSONArray miniLottoJSONList = parseFileContent (miniLottoFile, jsonParser);
-        ArrayList<Draw> miniLottoHistory = convertJSONArrayToDrawHistory(miniLottoJSONList);
+        FileReader miniLottoFile = DataReader.readFile (fileNameTwo);
+        JSONArray miniLottoJSONList = DataReader.parseFileContent (miniLottoFile, jsonParser);
+        ArrayList<Draw> miniLottoHistory = DataReader.convertJSONArrayToDrawHistory(miniLottoJSONList);
 
         Game lotto = new Game ("lotto", "1957-03-07", 49, 6, lottoHistory);
         Game miniLotto = new Game ("miniLotto", "30-12-1981", 42, 5, miniLottoHistory);
 
+        menuGame(lotto, miniLotto);
+
+
+
+
         // The same with DataReader class
         // DataReader lottoDataReader = new DataReader(gameOneName);
         // ArrayList<Draw> lottoHistory = lottoDataReader.createDrawHistory();
-
-        menuGame(lotto, miniLotto);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // READ THE DATA
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static FileReader readFile (String filename){
-        // FileReader to read file
-        try  {
-            FileReader reader = new FileReader(filename);
-            return reader;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static void readFile2 (String filename){
-        try {
-            ArrayList<String> list = new ArrayList<String>();
-            list.get(10);
-        } catch (Exception bug) {
-            bug.printStackTrace();
-            System.out.println("Cos poszlo nie tak, ale to nic");
-        }
-    }
-    public static JSONArray parseFileContent (FileReader readFile, JSONParser jsonParser){
-        try  {
-            //JSON object to parse JSON file
-            Object obj = jsonParser.parse(readFile);
-            JSONArray jsonList = (JSONArray) obj;
-            //System.out.println(jsonList);
-            return jsonList;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public  static ArrayList<Draw> convertJSONArrayToDrawHistory(JSONArray jsonList) {
-        ArrayList<Draw> history = new ArrayList<Draw>();
-        //Iterate over array
-        for (Object element : jsonList) {
-            JSONObject jsonObject = (JSONObject) element;
-            Draw draw = convertJSONObjectToDraw(jsonObject);
-            history.add(draw);
-        }
-        return history;
-    }
-
-    public static Draw convertJSONObjectToDraw(JSONObject element) {
-        //Get date
-        String date = (String) element.get("date");
-        //System.out.println(date);
-        //Get id
-        Long id = (Long)element.get("id");
-        //System.out.println(id);
-        //Get numbers
-        JSONArray jsonArray = (JSONArray) element.get("numbers");
-        //System.out.println(jsonArray);
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        if (jsonArray != null) {
-            int len = jsonArray.size();
-            for (int i = 0; i < len; i++) {
-                list.add(Integer.parseInt(jsonArray.get(i).toString()));
-            }
-        }
-        // create Draw object
-        return new Draw(id, date, list);
-    }
+    // przeniesione do Reader
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // MENUS

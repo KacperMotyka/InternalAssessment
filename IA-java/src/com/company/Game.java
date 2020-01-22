@@ -91,7 +91,7 @@ public class Game {
         for (int i = 1; i < this.ballStatistics.size(); i++) {
             Ball ball = this.ballStatistics.get(i);
             double d = this.getHistory().size();
-            ball.setTotalPercentOfWinning(ball.getTotalNumberOfWinning()*100/d);
+            ball.setTotalPercentOfWinning(ball.getTotalNumberOfWinning() * 100 / d);
         }
     }
 
