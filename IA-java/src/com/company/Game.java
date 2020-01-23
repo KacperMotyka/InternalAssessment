@@ -208,6 +208,14 @@ public class Game {
         // System.out.println("Array size:" + array.size());
         return array.subList(0, 20);
     }
+    // 20 least frequently winning numbers in the entire history
+    public List<Ball> allBalls() {
+        ArrayList<Ball> array = (ArrayList<Ball>) this.ballStatistics.clone();
+        // System.out.println("Array size:" + array.size());
+        array.sort(this.comparatorByPercentWinningAscending);
+        // System.out.println("Array size:" + array.size());
+        return array.subList(0, this.totalNumberOfBalls);
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Program will allow user to select a STRATEGY:

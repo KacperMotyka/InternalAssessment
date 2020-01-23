@@ -127,21 +127,27 @@ public class Main {
                 List<Ball> balls2 = currentGame.twentyLeastFrequentlyWinning();
                 printArray(balls2, "to string");
                 break;
+            case 7:
+                System.out.println("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nStatistics for all balls\n");
+                List<Ball> balls3 = currentGame.allBalls();
+                printArray(balls3, "to string");
+                break;
         }
     }
 
     public static int menuChooseStrategy(String name){
         Scanner scanner = new Scanner(System.in);
         String massage = ""+
-                "\n--------------------------------------------------------------------------- " +
-                "\n           " + name.toUpperCase() + " GAME :  WHAT DO YOU WANT TO SEE ? " +
-                "\n--------------------------------------------------------------------------- " +
-                "\n\nChoose balls according to Strategy 1 .............................press 1 " +
-                "\nChoose balls according to Strategy 2 .............................press 2 " +
-                "\nChoose balls according to Strategy 3 .............................press 3 " +
-                "\nChoose balls according to Strategy 4 .............................press 4 " +
-                "\nSee statistics for twenty most frequently winning.................press 5 " +
-                "\nSee statistics for twenty least frequently winning................press 6 ";
+                "\n------------------------------------------------------------------------------------------ " +
+                "\n                         " + name.toUpperCase() + " GAME :  WHAT DO YOU WANT TO SEE ? " +
+                "\n------------------------------------------------------------------------------------------ " +
+                "\n\nChoose balls according to Strategy 1 ..............................................press 1 " +
+                "\nChoose balls according to Strategy 2 ..............................................press 2 " +
+                "\nChoose balls according to Strategy 3 ..............................................press 3 " +
+                "\nChoose balls according to Strategy 4 ..............................................press 4 " +
+                "\nSee statistics for twenty most frequently winning..................................press 5 " +
+                "\nSee statistics for twenty least frequently winning.................................press 6 " +
+                "\nSee statistics for all balls.......................................................press 7 ";
         System.out.println(massage);
         int choice = scanner.nextInt();
         return choice;

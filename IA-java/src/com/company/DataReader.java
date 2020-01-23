@@ -91,10 +91,4 @@ public class DataReader {
         // create Draw object
         return new Draw(id, date, list);
     }
-
-
-
-
-
-
 }
