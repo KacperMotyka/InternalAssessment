@@ -10,15 +10,7 @@ public class Draw {
     private int week;
     private ArrayList<Integer> results;
 
-    // CONSTRUCTOR
-    public Draw(long id, String date, ArrayList<Integer> results){
-        //this.id = Integer.parseInt(id);
-        this.id = id;
-        this.date = date;
-        this.year = 0;
-        this.week = 0;
-        this.results = results;
-    }
+
 
     // CONSTRUCTOR
     public Draw(long id, int year, int week, ArrayList<Integer> results) {
