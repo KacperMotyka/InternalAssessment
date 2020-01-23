@@ -1,45 +1,40 @@
 package com.company;
 
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        // REFRESH WEB DATA
-        //DataDownloader.refreshHTMLFilesJava("lotto");
-        //DataDownloader.refreshHTMLFilesJava("mini-lotto");
-        //DataDownloader.extractDataFromHTML("lotto");
-        //DataDownloader.extractDataFromHTML("mini");
-        //DataDownloader.refreshJSONData("lotto");
-        //DataDownloader.refreshJSONData("mini");
+
+        // REFRESH WEB DATA WITH PYTHON
+        DataDownloader1.refreshData();
+
+        // REFRESH WEB DATA WITH JAVA
+        DataDownloader2.refreshHTMLFiles("lotto");
+        DataDownloader2.refreshHTMLFiles("mini-lotto");
+        DataDownloader2.extractDataFromHTML("lotto");
+        DataDownloader2.extractDataFromHTML("mini-lotto");
 
 
-
-        /*
         // READ JSON DATA
         String path = "";
         JSONParser jsonParser =  new JSONParser();
 
         String gameOneName = "lotto";
-        String fileNameOne = path + gameOneName + "_history.json";
+        String fileNameOne = path + gameOneName + "-history.json";
         FileReader lottoFile = DataReader.readFile (fileNameOne);
         JSONArray lottoJSONList = DataReader.parseFileContent (lottoFile, jsonParser);
         ArrayList<Draw> lottoHistory = DataReader.convertJSONArrayToDrawHistory(lottoJSONList);
 
         String gameTwoName = "mini-lotto";
-        String fileNameTwo = path + gameTwoName + "_history.json";
+        String fileNameTwo = path + gameTwoName + "-history.json";
         FileReader miniLottoFile = DataReader.readFile (fileNameTwo);
         JSONArray miniLottoJSONList = DataReader.parseFileContent (miniLottoFile, jsonParser);
         ArrayList<Draw> miniLottoHistory = DataReader.convertJSONArrayToDrawHistory(miniLottoJSONList);
@@ -48,7 +43,7 @@ public class Main {
         Game miniLotto = new Game ("miniLotto", "30-12-1981", 42, 5, miniLottoHistory);
 
         menuGame(lotto, miniLotto);
-        */
+
 
 
         // The same with DataReader class
@@ -164,5 +159,11 @@ public class Main {
                 System.out.println(list.get(i).toString());
             }
         }
+    }
+    public static void printArray(ArrayList<Integer> list){
+        for (int i = 0; i < list.size()-1; i++ ){
+            System.out.print(list.get(i) + ",");
+        }
+        System.out.println(list.get(list.size()-1));
     }
 }

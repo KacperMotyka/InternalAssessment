@@ -17,6 +17,7 @@ public class Game {
         this.totalNumberOfBalls = totalNumberOfBalls;
         this.numberOfSelectedBalls = numberOfSelectedBalls;
         this.drawHistory = history;
+        this.drawHistory.sort(comparatorByIdDescending);
         recalculateBallsStatistics();
     }
 
@@ -41,6 +42,7 @@ public class Game {
     }
     public void setHistory(ArrayList<Draw> history) {
         this.drawHistory = history;
+        this.drawHistory.sort(comparatorByIdDescending);
         recalculateBallsStatistics();
     }
 
@@ -48,13 +50,13 @@ public class Game {
     // COMPARATORS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public Comparator<Ball> comparatorByPercentWinningAscending = new Comparator<Ball>() {
+    public Comparator<Ball> comparatorByPercentWinningDescending = new Comparator<Ball>() {
         public int compare(Ball ball1, Ball ball2) {
             return ball1.getTotalPercentOfWinning() < ball2.getTotalPercentOfWinning()  ? 1 : ball1.getTotalPercentOfWinning()  > ball2.getTotalPercentOfWinning()  ? -1 : 0;
         }
     };
 
-    public Comparator<Ball> comparatorByPercentWinningDescending = new Comparator<Ball>() {
+    public Comparator<Ball> comparatorByPercentWinningAscending = new Comparator<Ball>() {
         public int compare(Ball ball1, Ball ball2) {
             return ball1.getTotalPercentOfWinning() > ball2.getTotalPercentOfWinning()  ? 1 : ball1.getTotalPercentOfWinning()  < ball2.getTotalPercentOfWinning()  ? -1 : 0;
         }
@@ -62,18 +64,23 @@ public class Game {
 
     public Comparator<Ball> comparatorByAccelerationIndexDescending = new Comparator<Ball>() {
         public int compare(Ball ball1, Ball ball2) {
-            return ball1.getIndexOfAcceleration() > ball2.getIndexOfAcceleration()  ? 1 : ball1.getIndexOfAcceleration()  < ball2.getIndexOfAcceleration()  ? -1 : 0;
+            return ball1.getIndexOfAcceleration() < ball2.getIndexOfAcceleration()  ? 1 : ball1.getIndexOfAcceleration()  > ball2.getIndexOfAcceleration()  ? -1 : 0;
         }
     };
-
+    public Comparator<Draw> comparatorByIdDescending = new Comparator<Draw>() {
+        public int compare(Draw draw1, Draw draw2) {
+            return draw1.getId() < draw2.getId()  ? 1 : draw1.getId()  > draw2.getId()  ? -1 : 0;
+        }
+    };
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BALL STATISTICS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void recalculateBallsStatistics(){
-        this.ballStatistics = new ArrayList<Ball>(this.totalNumberOfBalls + 1);
-        for (Integer i = 0; i <= this.totalNumberOfBalls; i++){
-            ballStatistics.add(i, new Ball(i.toString()));
+        this.ballStatistics = new ArrayList<Ball>(this.totalNumberOfBalls);
+        for (int i = 0; i < this.totalNumberOfBalls; i++){
+            Integer a = i+1;
+            ballStatistics.add(i, new Ball(a.toString()));
         }
         recalculateTotal();
         recalculateLastDraws();
@@ -81,14 +88,17 @@ public class Game {
     }
 
     private void recalculateTotal(){
+        //System.out.println(this.name + this.totalNumberOfBalls);
         for (Draw draw : this.drawHistory){
+            //Main.printArray(draw.getResults());
+            //System.out.println( draw.getId() +draw.getYear());
             for (int number : draw.getResults()) {
-                Ball ball = ballStatistics.get(number);
+                Ball ball = ballStatistics.get(number-1);
                 ball.setTotalNumberOfWinning(ball.getTotalNumberOfWinning() + 1);
             }
         }
 
-        for (int i = 1; i < this.ballStatistics.size(); i++) {
+        for (int i = 0; i < this.ballStatistics.size(); i++) {
             Ball ball = this.ballStatistics.get(i);
             double d = this.getHistory().size();
             ball.setTotalPercentOfWinning(ball.getTotalNumberOfWinning() * 100 / d);
@@ -99,19 +109,19 @@ public class Game {
 
         for (Draw draw : this.drawHistory.subList(0,5)){
             for (int number : draw.getResults()) {
-                Ball ball = ballStatistics.get(number);
+                Ball ball = ballStatistics.get(number-1);
                 ball.setLast5drawsWinning(ball.getLast5drawsWinning() + 1);
             }
         }
         for (Draw draw : this.drawHistory.subList(0,10)){
             for (int number : draw.getResults()) {
-                Ball ball = ballStatistics.get(number);
+                Ball ball = ballStatistics.get(number-1);
                 ball.setLast10drawsWinning(ball.getLast10drawsWinning() + 1);
             }
         }
         for (Draw draw : this.drawHistory.subList(0,15)){
             for (int number : draw.getResults()) {
-                Ball ball = ballStatistics.get(number);
+                Ball ball = ballStatistics.get(number-1);
                 ball.setLast15drawsWinning(ball.getLast15drawsWinning() + 1);
             }
         }

@@ -1,24 +1,19 @@
 package com.company;
 
+import java.text.DecimalFormat;
+
 public class Ball {
     private String number;
-    private double totalNumberOfWinning;
+    private int totalNumberOfWinning;
     private double totalPercentOfWinning;
     private int last15drawsWinning;
     private int last10drawsWinning;
     private int last5drawsWinning;
     private double indexOfAcceleration;
+    private static DecimalFormat df = new DecimalFormat("0.000");
+    private static DecimalFormat df2 = new DecimalFormat("0");
 
-    // CONSTRUCTOR
-    public Ball(String number, int totalNumberOfWinning, float totalPercentOfWinning, int last15drawsWinning, int last10drawsWinning, int last5drawsWinning) {
-        this.number = number;
-        this.totalNumberOfWinning = totalNumberOfWinning;
-        this.totalPercentOfWinning = totalPercentOfWinning;
-        this.last15drawsWinning = last15drawsWinning;
-        this.last10drawsWinning = last10drawsWinning;
-        this.last5drawsWinning = last5drawsWinning;
-        this.indexOfAcceleration = last15drawsWinning/15 + 1.25 * last10drawsWinning/10 + 1.5 * last5drawsWinning/5;
-    }
+
     // CONSTRUCTOR
     public Ball (String number){
         this.number = number;
@@ -34,7 +29,7 @@ public class Ball {
     public String getNumber() {
         return number;
     }
-    public double getTotalNumberOfWinning() {
+    public int getTotalNumberOfWinning() {
         return totalNumberOfWinning;
     }
     public double getTotalPercentOfWinning() {
@@ -57,7 +52,7 @@ public class Ball {
     public void setNumber(String number) {
         this.number = number;
     }
-    public void setTotalNumberOfWinning(double totalNumberOfWinning) {
+    public void setTotalNumberOfWinning(int totalNumberOfWinning) {
         this.totalNumberOfWinning = totalNumberOfWinning;
     }
     public void setTotalPercentOfWinning(double totalPercentOfWinning) {
@@ -78,15 +73,13 @@ public class Ball {
 
     @Override
     public String toString() {
-        return "Ball{" +
-                "number='" + number + '\'' +
-                ", WinningTimes=" + totalNumberOfWinning +
-                ", WinningPercent=" + totalPercentOfWinning +
-                ", last15draws=" + last15drawsWinning +
-                ", last10draws=" + last10drawsWinning +
-                ", last5draws=" + last5drawsWinning +
-                ", indexAcc=" + indexOfAcceleration +
-                '}';
+        return  "Ball number: " + String.format("%2s",number)+
+                ",  Winning Times: " + df2.format(totalNumberOfWinning) +
+                ",  Winning Percent: " + df.format(totalPercentOfWinning) +
+                ",  Last 15 draws: " + last15drawsWinning +
+                ",  Last 10 draws: " + last10drawsWinning +
+                ",  Last 5 draws: " + last5drawsWinning +
+                ",  Index of Acc: " + df.format(indexOfAcceleration);
     }
 
     // METHODS

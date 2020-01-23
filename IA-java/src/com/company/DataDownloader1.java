@@ -2,7 +2,7 @@ package com.company;
 
 import java.io.*;
 
-public class DataDownloader {
+public class DataDownloader1 {
 
     // class attributes
     public static String shellFilesPath = "../";
@@ -23,22 +23,6 @@ public class DataDownloader {
         }
     }
 
-    
-    /*
-    public static void refreshHTMLFiles(String gameName) throws Exception {
 
-        String shellScriptName = shellFilesPath + "download-" + gameName + ".sh";
-        String[] command = {"sh", shellScriptName};
-        try {
-            Runtime rt = Runtime.getRuntime();
-            Process pr = rt.exec(command);
-            pr.waitFor();
-            System.out.println("New HTML files for " + gameName +" downloaded");
-        } catch (Exception e){
-            System.out.println("Problem executing command: "+ command[0] + " " + command[1]);
-            System.out.print(e.getMessage());
-            throw new Exception();
-        }
-    }
-*/
+
 }
