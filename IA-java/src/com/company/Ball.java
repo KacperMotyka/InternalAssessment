@@ -80,12 +80,12 @@ public class Ball {
     public String toString() {
         return "Ball{" +
                 "number='" + number + '\'' +
-                ", totalNumberOfWinning=" + totalNumberOfWinning +
-                ", totalPercentOfWinning=" + totalPercentOfWinning +
-                ", last15drawsWinning=" + last15drawsWinning +
-                ", last10drawsWinning=" + last10drawsWinning +
-                ", last5drawsWinning=" + last5drawsWinning +
-                ", indexOfAcceleration=" + indexOfAcceleration +
+                ", WinningTimes=" + totalNumberOfWinning +
+                ", WinningPercent=" + totalPercentOfWinning +
+                ", last15draws=" + last15drawsWinning +
+                ", last10draws=" + last10drawsWinning +
+                ", last5draws=" + last5drawsWinning +
+                ", indexAcc=" + indexOfAcceleration +
                 '}';
     }
 
