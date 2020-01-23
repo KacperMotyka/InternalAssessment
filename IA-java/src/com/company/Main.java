@@ -17,10 +17,10 @@ public class Main {
         DataDownloader1.refreshData();
 
         // REFRESH WEB DATA WITH JAVA
-        DataDownloader2.refreshHTMLFiles("lotto");
-        DataDownloader2.refreshHTMLFiles("mini-lotto");
-        DataDownloader2.extractDataFromHTML("lotto");
-        DataDownloader2.extractDataFromHTML("mini-lotto");
+        //DataDownloader2.refreshHTMLFiles("lotto");
+        //DataDownloader2.refreshHTMLFiles("mini-lotto");
+        //DataDownloader2.extractDataFromHTML("lotto");
+        //DataDownloader2.extractDataFromHTML("mini-lotto");
 
 
         // READ JSON DATA
