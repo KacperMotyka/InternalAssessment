@@ -63,15 +63,18 @@ public class Main {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static void menuGame(Game lotto, Game miniLotto){
-        int game = menuChooseGame();
 
-        switch (game) {
-            case 1:
-                menuStrategy(lotto);
-                break;
-            case 2:
-                menuStrategy(miniLotto);
-                break;
+        int game  = -1;
+        while (game != 0) {
+            game = menuChooseGame();
+            switch (game) {
+                case 1:
+                    menuStrategy(lotto);
+                    break;
+                case 2:
+                    menuStrategy(miniLotto);
+                    break;
+            }
         }
     }
     public static int menuChooseGame(){
@@ -80,6 +83,7 @@ public class Main {
                 "\n------------------------------------------------------------------------------------------  " +
                 "\n                                     CHOOSE A GAME" +
                 "\n------------------------------------------------------------------------------------------  " +
+                "\n\nExit ............................................................................press: 0 " +
                 "\n\nLotto Game (1957-2020): 49 balls ................................................press: 1 " +
                 "\n\nMini-Lotto Game (1981-2020): 42 balls ...........................................press: 2 ";
         System.out.println(massage);
@@ -90,49 +94,53 @@ public class Main {
     public static void menuStrategy(Game currentGame){
         String name = currentGame.getName();
         String lastUpdate = currentGame.getHistory().get(0).getDate();
-        int strategy = menuChooseStrategy(name);
-        switch (strategy) {
-            case 1:
-                System.out.print("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 1: ");
-                System.out.println("Random choice from twenty most frequently winning\n");
-                Ball[] results1 = currentGame.calculateStrategy1();
-                printArray(results1, "to string");
-                break;
-            case 2:
-                System.out.print("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 2: ");
-                System.out.println("Random choice from twenty least frequently winning\n");
-                Ball[] results2 = currentGame.calculateStrategy2();
-                printArray(results2, "to string");
+        int strategy = -1;
+        while (strategy != 0) {
+            strategy = menuChooseStrategy(name);
+            switch (strategy) {
+                case 1:
+                    System.out.print("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 1: ");
+                    System.out.println("Random choice from twenty most frequently winning\n");
+                    Ball[] results1 = currentGame.calculateStrategy1();
+                    printArray(results1, "to string");
+                    break;
+                case 2:
+                    System.out.print("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 2: ");
+                    System.out.println("Random choice from twenty least frequently winning\n");
+                    Ball[] results2 = currentGame.calculateStrategy2();
+                    printArray(results2, "to string");
 
-                break;
-            case 3:
-                System.out.print("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 3: ");
-                System.out.println("Best Accelaration Index from twenty most frequently winning\n");
-                List<Ball> results3 = currentGame.calculateStrategy3();
-                printArray(results3, "to string");
-                break;
-            case 4:
-                System.out.print("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 4: ");
-                System.out.println("Best Accelaration Index from twenty least frequently winning\n");
-                List<Ball> results4  = currentGame.calculateStrategy4();
-                printArray(results4, "to string");
-                break;
-            case 5:
-                System.out.println("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nStatistics for twenty most frequently winning\n");
-                List<Ball> balls1 = currentGame.twentyMostFrequentlyWinning();
-                printArray(balls1, "to string");
-                break;
-            case 6:
-                System.out.println("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nStatistics for twenty least frequently winning\n");
-                List<Ball> balls2 = currentGame.twentyLeastFrequentlyWinning();
-                printArray(balls2, "to string");
-                break;
-            case 7:
-                System.out.println("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nStatistics for all balls\n");
-                List<Ball> balls3 = currentGame.allBalls();
-                printArray(balls3, "to string");
-                break;
+                    break;
+                case 3:
+                    System.out.print("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 3: ");
+                    System.out.println("Best Accelaration Index from twenty most frequently winning\n");
+                    List<Ball> results3 = currentGame.calculateStrategy3();
+                    printArray(results3, "to string");
+                    break;
+                case 4:
+                    System.out.print("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 4: ");
+                    System.out.println("Best Accelaration Index from twenty least frequently winning\n");
+                    List<Ball> results4  = currentGame.calculateStrategy4();
+                    printArray(results4, "to string");
+                    break;
+                case 5:
+                    System.out.println("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nStatistics for twenty most frequently winning\n");
+                    List<Ball> balls1 = currentGame.twentyMostFrequentlyWinning();
+                    printArray(balls1, "to string");
+                    break;
+                case 6:
+                    System.out.println("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nStatistics for twenty least frequently winning\n");
+                    List<Ball> balls2 = currentGame.twentyLeastFrequentlyWinning();
+                    printArray(balls2, "to string");
+                    break;
+                case 7:
+                    System.out.println("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nStatistics for all balls\n");
+                    List<Ball> balls3 = currentGame.allBalls();
+                    printArray(balls3, "to string");
+                    break;
+            }
         }
+
     }
 
     public static int menuChooseStrategy(String name){
@@ -141,7 +149,8 @@ public class Main {
                 "\n------------------------------------------------------------------------------------------ " +
                 "\n                         " + name.toUpperCase() + " GAME :  WHAT DO YOU WANT TO SEE ? " +
                 "\n------------------------------------------------------------------------------------------ " +
-                "\n\nChoose balls according to Strategy 1 ..............................................press 1 " +
+                "\n\nReturn to choosing game............................................................press 0 " +
+                "\nChoose balls according to Strategy 1 ..............................................press 1 " +
                 "\nChoose balls according to Strategy 2 ..............................................press 2 " +
                 "\nChoose balls according to Strategy 3 ..............................................press 3 " +
                 "\nChoose balls according to Strategy 4 ..............................................press 4 " +
