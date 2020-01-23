@@ -22,6 +22,10 @@ public class Draw {
 
 
     // GETTERS
+
+    public String getDate() {
+        return date;
+    }
     public ArrayList<Integer> getResults() {
         return results;
     }

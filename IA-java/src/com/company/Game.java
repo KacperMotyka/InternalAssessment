@@ -22,6 +22,10 @@ public class Game {
     }
 
     // GETTERS
+
+    public String getName() {
+        return name;
+    }
     public String getLaunchDate() {
         return launchDate;
     }
