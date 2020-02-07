@@ -16,12 +16,6 @@ public class Main {
         // REFRESH WEB DATA WITH PYTHON
         DataDownloader1.refreshData();
 
-        // REFRESH WEB DATA WITH JAVA
-        //DataDownloader2.refreshHTMLFiles("lotto");
-        //DataDownloader2.refreshHTMLFiles("mini-lotto");
-        //DataDownloader2.extractDataFromHTML("lotto");
-        //DataDownloader2.extractDataFromHTML("mini-lotto");
-
 
         // READ JSON DATA
         String path = "";
@@ -99,42 +93,42 @@ public class Main {
             strategy = menuChooseStrategy(name);
             switch (strategy) {
                 case 1:
-                    System.out.print("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 1: ");
+                    System.out.print("\n"+ name.toUpperCase()+ " GAME : Last draw " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 1: ");
                     System.out.println("Random choice from twenty most frequently winning\n");
                     Ball[] results1 = currentGame.calculateStrategy1();
                     printArray(results1, "to string");
                     break;
                 case 2:
-                    System.out.print("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 2: ");
+                    System.out.print("\n"+ name.toUpperCase()+ " GAME : Last draw " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 2: ");
                     System.out.println("Random choice from twenty least frequently winning\n");
                     Ball[] results2 = currentGame.calculateStrategy2();
                     printArray(results2, "to string");
 
                     break;
                 case 3:
-                    System.out.print("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 3: ");
+                    System.out.print("\n"+ name.toUpperCase()+ " GAME : Last draw " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 3: ");
                     System.out.println("Best Accelaration Index from twenty most frequently winning\n");
                     List<Ball> results3 = currentGame.calculateStrategy3();
                     printArray(results3, "to string");
                     break;
                 case 4:
-                    System.out.print("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 4: ");
+                    System.out.print("\n"+ name.toUpperCase()+ " GAME : Last draw " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 4: ");
                     System.out.println("Best Accelaration Index from twenty least frequently winning\n");
                     List<Ball> results4  = currentGame.calculateStrategy4();
                     printArray(results4, "to string");
                     break;
                 case 5:
-                    System.out.println("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nStatistics for twenty most frequently winning\n");
+                    System.out.println("\n"+ name.toUpperCase()+ " GAME : Last draw " + lastUpdate + "\nStatistics for twenty most frequently winning\n");
                     List<Ball> balls1 = currentGame.twentyMostFrequentlyWinning();
                     printArray(balls1, "to string");
                     break;
                 case 6:
-                    System.out.println("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nStatistics for twenty least frequently winning\n");
+                    System.out.println("\n"+ name.toUpperCase()+ " GAME : Last draw " + lastUpdate + "\nStatistics for twenty least frequently winning\n");
                     List<Ball> balls2 = currentGame.twentyLeastFrequentlyWinning();
                     printArray(balls2, "to string");
                     break;
                 case 7:
-                    System.out.println("\n"+ name.toUpperCase()+ " GAME : Last update " + lastUpdate + "\nStatistics for all balls\n");
+                    System.out.println("\n"+ name.toUpperCase()+ " GAME : Last draw " + lastUpdate + "\nStatistics for all balls\n");
                     List<Ball> balls3 = currentGame.allBalls();
                     printArray(balls3, "to string");
                     break;
