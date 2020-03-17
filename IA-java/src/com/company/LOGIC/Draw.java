@@ -1,4 +1,4 @@
-package com.company;
+package com.company.LOGIC;
 
 import java.sql.Date;
 import java.util.ArrayList;

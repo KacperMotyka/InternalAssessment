@@ -1,6 +1,8 @@
 package com.company;
 
 
+import com.company.LOGIC.Application;
+
 public class Main {
 
     public static void main(String[] args) {

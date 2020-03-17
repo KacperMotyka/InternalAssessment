@@ -1,4 +1,4 @@
-package com.company;
+package com.company.LOGIC;
 
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
@@ -10,8 +10,8 @@ import java.util.Scanner;
 
 public class Application {
 
-    Game lotto;
-    Game miniLotto;
+    public Game lotto;
+    public Game miniLotto;
 
     public Application() {
 
