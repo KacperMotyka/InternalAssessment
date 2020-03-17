@@ -75,7 +75,7 @@ def refresh_data (name, first_year, last_year):
 #               MAIN
 ##############################################
 # refresh html
-#subprocess.run(["sh", "download.sh"])
+subprocess.run(["sh", "download.sh"])
 
 ####################################################
 # extract content

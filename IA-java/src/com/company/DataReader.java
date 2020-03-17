@@ -3,11 +3,17 @@ package com.company;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
+
+
 import org.json.simple.parser.ParseException;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+
+
 import java.io.IOException;
+
 import java.util.ArrayList;
 
 public class DataReader {
@@ -32,39 +38,45 @@ public class DataReader {
     public static FileReader readFile (String filename){
         // FileReader to read file
         try  {
+
             FileReader reader = new FileReader(filename);
             return reader;
+
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
 
-    public static JSONArray parseFileContent (FileReader readFile, JSONParser jsonParser){
+
+    public static JSONArray parseFileContent (FileReader reader, JSONParser jsonParser){
         try  {
+
             //JSON object to parse JSON file
-            Object obj = jsonParser.parse(readFile);
+
+            Object obj = jsonParser.parse(reader);
             JSONArray jsonList = (JSONArray) obj;
-            //System.out.println(jsonList);
             return jsonList;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
+
+
+
+    //System.out.println(jsonList);
     public  static ArrayList<Draw> convertJSONArrayToDrawHistory(JSONArray jsonList) {
         ArrayList<Draw> history = new ArrayList<Draw>();
         //Iterate over array
         for (Object element : jsonList) {
+
+
             JSONObject jsonObject = (JSONObject) element;
+
             Draw draw = convertJSONObjectToDraw(jsonObject);
             history.add(draw);
         }

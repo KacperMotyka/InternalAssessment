@@ -17,7 +17,9 @@ public class Game {
         this.totalNumberOfBalls = totalNumberOfBalls;
         this.numberOfSelectedBalls = numberOfSelectedBalls;
         this.drawHistory = history;
+
         this.drawHistory.sort(comparatorByIdDescending);
+
         recalculateBallsStatistics();
     }
 
@@ -56,26 +58,27 @@ public class Game {
 
     public Comparator<Ball> comparatorByPercentWinningDescending = new Comparator<Ball>() {
         public int compare(Ball ball1, Ball ball2) {
-            return ball1.getTotalPercentOfWinning() < ball2.getTotalPercentOfWinning()  ? 1 : ball1.getTotalPercentOfWinning()  > ball2.getTotalPercentOfWinning()  ? -1 : 0;
+            return ball1.getTotalPercentOfWinning() < ball2.getTotalPercentOfWinning()  ? 1 : 0 ;   // ball1.getTotalPercentOfWinning()  > ball2.getTotalPercentOfWinning()  ? -1 : 0;
         }
     };
 
     public Comparator<Ball> comparatorByPercentWinningAscending = new Comparator<Ball>() {
         public int compare(Ball ball1, Ball ball2) {
-            return ball1.getTotalPercentOfWinning() > ball2.getTotalPercentOfWinning()  ? 1 : ball1.getTotalPercentOfWinning()  < ball2.getTotalPercentOfWinning()  ? -1 : 0;
+            return ball1.getTotalPercentOfWinning() > ball2.getTotalPercentOfWinning()  ? 1 : 0 ;  ///ball1.getTotalPercentOfWinning()  < ball2.getTotalPercentOfWinning()  ? -1 : 0;
         }
     };
 
     public Comparator<Ball> comparatorByAccelerationIndexDescending = new Comparator<Ball>() {
         public int compare(Ball ball1, Ball ball2) {
-            return ball1.getIndexOfAcceleration() < ball2.getIndexOfAcceleration()  ? 1 : ball1.getIndexOfAcceleration()  > ball2.getIndexOfAcceleration()  ? -1 : 0;
+            return ball1.getIndexOfAcceleration() < ball2.getIndexOfAcceleration()  ? 1 : 0;       //ball1.getIndexOfAcceleration()  > ball2.getIndexOfAcceleration()  ? -1 : 0;
         }
     };
     public Comparator<Draw> comparatorByIdDescending = new Comparator<Draw>() {
         public int compare(Draw draw1, Draw draw2) {
-            return draw1.getId() < draw2.getId()  ? 1 : draw1.getId()  > draw2.getId()  ? -1 : 0;
+            return draw1.getId() < draw2.getId()  ? 1 : 0;                                      // draw1.getId()  > draw2.getId()  ? -1 : 0;
         }
     };
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // BALL STATISTICS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -93,15 +96,22 @@ public class Game {
 
     private void recalculateTotal(){
         //System.out.println(this.name + this.totalNumberOfBalls);
-        for (Draw draw : this.drawHistory){
+
+        // calcul frequency of each number
+        List<Draw> drawList = this.drawHistory;
+        for (int i =0; i < drawList.size(); i++){
+            Draw draw = drawList.get(i);
+            List<Integer> results = draw.getResults();
             //Main.printArray(draw.getResults());
             //System.out.println( draw.getId() +draw.getYear());
-            for (int number : draw.getResults()) {
-                Ball ball = ballStatistics.get(number-1);
-                ball.setTotalNumberOfWinning(ball.getTotalNumberOfWinning() + 1);
+            for (int j = 0; j < results.size(); j++) {
+                int winningNumber = results.get(j);
+                Ball winningball = ballStatistics.get(winningNumber-1);
+                // incrementation of winning frequency
+                winningball.setTotalNumberOfWinning(winningball.getTotalNumberOfWinning() + 1);
             }
         }
-
+        // calcul winning percent for each number
         for (int i = 0; i < this.ballStatistics.size(); i++) {
             Ball ball = this.ballStatistics.get(i);
             double d = this.getHistory().size();
@@ -111,7 +121,9 @@ public class Game {
 
     private void recalculateLastDraws(){
 
-        for (Draw draw : this.drawHistory.subList(0,5)){
+        List<Draw> drawList = this.drawHistory.subList(0,5);
+
+        for (Draw draw : drawList){
             for (int number : draw.getResults()) {
                 Ball ball = ballStatistics.get(number-1);
                 ball.setLast5drawsWinning(ball.getLast5drawsWinning() + 1);
@@ -208,6 +220,7 @@ public class Game {
         // System.out.println("Array size:" + array.size());
         return array.subList(0, 20);
     }
+
     // 20 least frequently winning numbers in the entire history
     public List<Ball> allBalls() {
         ArrayList<Ball> array = (ArrayList<Ball>) this.ballStatistics.clone();
@@ -239,8 +252,9 @@ public class Game {
     //    Least Frequent Random
     //    From the 20 least frequently winning program will randomly choose a set of numbers, containing 6 numbers each.
     public Ball[] calculateStrategy2(){
+
         List<Ball> balls = this.twentyLeastFrequentlyWinning();
-        // printArray(balls);
+        //printArray(balls);
         Random randomDrawer = new Random();
         Ball[] result = new Ball[this.numberOfSelectedBalls];
         for (int i=0; i < result.length; i++) {
@@ -248,6 +262,7 @@ public class Game {
             result[i] = balls.get(index);
             balls.remove(index);
         }
+
         return result;
     }
 
@@ -255,6 +270,7 @@ public class Game {
     //    For each number in set of “20 most frequently winning numbers” the program will calculate Index of Acceleration using the following formula:
     //    Index of acceleration = [Winning Percent from the last 15 draws] + 1.25 * [Winning Percent from the last 10 draws] + 1.5 * [Winning Percent from the last 5 draws]
     //    Program will then choose 6 numbers with the highest IoA.
+
     public List<Ball> calculateStrategy3(){
         List<Ball> twentyMost = this.twentyMostFrequentlyWinning();
         //printArray(twentyMost);
@@ -266,6 +282,7 @@ public class Game {
     //    For each number in set of “20 least frequently winning numbers” the program will calculate Index of Acceleration (IoA) using the following formula:
     //    Index of acceleration = [Winning Percent from the last 15 draws] + 1.25 * [Winning Percent from the last 10 draws] + 1.5 * [Winning Percent from the last 5 draws]
     //    Program will then choose 6 numbers with the highest IoA.
+
     public List<Ball> calculateStrategy4(){
         List<Ball> twentyLeast = this.twentyLeastFrequentlyWinning();
         //printArray(twentyLeast);
