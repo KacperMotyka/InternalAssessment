@@ -42,7 +42,10 @@ public class Application {
         // ArrayList<Draw> lottoHistory = lottoDataReader.createDrawHistory();
 
     }
-
+    public static void main(String[] args) {
+        Application app = new Application();
+        Application.menuGame(app.lotto, app.miniLotto);
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // MENUS
