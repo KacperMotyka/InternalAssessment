@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Application {
+public class ApplicationLogic {
 
     public Game lotto;
     public Game miniLotto;
 
-    public Application() {
+    public ApplicationLogic() {
 
         // REFRESH WEB DATA WITH PYTHON
         DataDownloader1.refreshData();
@@ -43,8 +43,8 @@ public class Application {
 
     }
     public static void main(String[] args) {
-        Application app = new Application();
-        Application.menuGame(app.lotto, app.miniLotto);
+        ApplicationLogic app = new ApplicationLogic();
+        ApplicationLogic.menuGame(app.lotto, app.miniLotto);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

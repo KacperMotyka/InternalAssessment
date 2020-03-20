@@ -1,12 +1,12 @@
 package com.company;
 
 
-import com.company.LOGIC.Application;
+import com.company.LOGIC.ApplicationLogic;
 
 public class Main {
 
     public static void main(String[] args) {
-        Application app = new Application();
-        Application.menuGame(app.lotto, app.miniLotto);
+        ApplicationLogic app = new ApplicationLogic();
+        ApplicationLogic.menuGame(app.lotto, app.miniLotto);
     }
 }
