@@ -17,10 +17,10 @@ public class Game {
         this.totalNumberOfBalls = totalNumberOfBalls;
         this.numberOfSelectedBalls = numberOfSelectedBalls;
         this.drawHistory = history;
-
-        this.drawHistory.sort(comparatorByIdDescending);
-
-        recalculateBallsStatistics();
+        if (! drawHistory.isEmpty() && history != null) {
+            this.drawHistory.sort(comparatorByIdDescending);
+            recalculateBallsStatistics();
+        }
     }
 
     // GETTERS
