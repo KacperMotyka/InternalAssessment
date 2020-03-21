@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.canvas.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller">
+   <children>
+      <BorderPane layoutY="6.0" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #;" AnchorPane.rightAnchor="0.0">
+         <bottom>
+            <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="41.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER" />
+         </bottom>
+         <left>
+            <ToolBar nodeOrientation="RIGHT_TO_LEFT" orientation="VERTICAL" prefHeight="180.0" prefWidth="220.0" style="-fx-background-color: #3087caff;" BorderPane.alignment="CENTER">
+               <items>
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <RadioButton mnemonicParsing="false" onAction="#chooseGameRadio" text="Lotto" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="Action1" />
+                           </toggleGroup>
+                           <font>
+                              <Font name="Helvetica Neue" size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="6.0" left="1.0" right="20.0" top="6.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets right="20.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <RadioButton mnemonicParsing="false" onAction="#chooseGameRadio" selected="true" text="Minilotto" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action1">
+                           <font>
+                              <Font name="Helvetica Neue" size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="6.0" left="1.0" right="10.0" top="6.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets right="20.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <RadioButton mnemonicParsing="false" onAction="#chooseGameRadio" text="Eurojackpot" textAlignment="CENTER" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action1">
+                           <font>
+                              <Font name="Helvetica Neue" size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="6.0" left="1.0" right="10.0" top="6.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets right="20.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <RadioButton mnemonicParsing="false" onAction="#chooseResultsRadio" text="Strategia 1" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+
+                           <toggleGroup>
+                              <ToggleGroup fx:id="Action2" />
+                           </toggleGroup>
+                           <font>
+                              <Font name="Helvetica Neue" size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="6.0" left="1.0" right="10.0" top="6.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets right="20.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <RadioButton mnemonicParsing="false" onAction="#chooseResultsRadio" text="Strategia 2" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
+                           <font>
+                              <Font name="Helvetica Neue" size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="6.0" left="1.0" right="10.0" top="6.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets right="20.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <RadioButton layoutX="10.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseResultsRadio" text="Strategia 3" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
+                           <font>
+                              <Font name="Helvetica Neue" size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="6.0" left="1.0" right="10.0" top="6.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets right="20.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <RadioButton layoutX="10.0" layoutY="87.0" mnemonicParsing="false" onAction="#chooseResultsRadio" selected="true" text="Strategia 4" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
+                           <font>
+                              <Font name="Helvetica Neue" size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="6.0" left="1.0" right="10.0" top="6.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets right="20.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <RadioButton mnemonicParsing="false" onAction="#chooseResultsRadio" text="Statystyki" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
+                           <padding>
+                              <Insets bottom="6.0" left="1.0" right="10.0" top="6.0" />
+                           </padding>
+                           <font>
+                              <Font name="Helvetica Neue" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets right="20.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <RadioButton mnemonicParsing="false" onAction="#chooseResultsRadio" selected="true" text="Statystyki" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
+                           <padding>
+                              <Insets bottom="6.0" left="1.0" right="10.0" top="6.0" />
+                           </padding>
+                           <font>
+                              <Font name="Helvetica Neue" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets right="20.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <RadioButton mnemonicParsing="false" onAction="#chooseResultsRadio" text="Statystyki" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
+                           <padding>
+                              <Insets bottom="6.0" left="1.0" right="10.0" top="6.0" />
+                           </padding>
+                           <font>
+                              <Font name="Helvetica Neue" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets right="20.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                  </VBox>
+               </items>
+            </ToolBar>
+         </left>
+         <top>
+            <Pane prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #3087caff;" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="60.0" prefWidth="220.0">
+                     <children>
+                        <ImageView fitHeight="67.0" fitWidth="223.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../Desktop/Screen%20Shot%202020-03-19%20at%2001.39.47.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="216.0" prefHeight="60.0" prefWidth="600.0" style="-fx-background-color: #3087caff;">
+                     <children>
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="55.0" prefWidth="548.0" style="-fx-background-color: #3087caff;">
+                          <items>
+                              <Label text="Hello, make your choice" textFill="#fcec86">
+                                 <font>
+                                    <Font name="Helvetica Neue Bold Italic" size="24.0" />
+                                 </font>
+                              </Label>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="10.0" prefWidth="160.0" />
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="817.0" prefHeight="63.0" prefWidth="177.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#refreshDataButton" prefHeight="48.0" prefWidth="157.0" text="Refresh Data">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </Pane>
+         </top>
+         <center>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="781.0">
+                     <children>
+                        <ImageView fitHeight="91.0" fitWidth="341.0" layoutX="47.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../Desktop/Screen%20Shot%202020-03-20%20at%2012.23.33.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="308.0" layoutY="55.0" text="Prediction according to Strategy 1" textFill="#e8b306">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <TableView layoutX="156.0" layoutY="223.0" prefHeight="200.0" prefWidth="450.0" AnchorPane.leftAnchor="156.0" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="223.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="C1" />
+                            <TableColumn prefWidth="75.0" text="C2" />
+                              <TableColumn prefWidth="75.0" text="C2" />
+                              <TableColumn prefWidth="75.0" text="C2" />
+                          </columns>
+                        </TableView>
+                        <Label layoutX="365.0" layoutY="108.0" text="Lotto Game : Last drawing 12 mars 2020" textFill="#909090">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+              </content>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </ScrollPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
