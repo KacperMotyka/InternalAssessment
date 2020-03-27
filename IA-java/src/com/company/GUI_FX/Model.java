@@ -1,29 +1,14 @@
 package com.company.GUI_FX;
 
-import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.Parent;
 
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 
 
-
-
-import javafx.embed.swing.SwingNode;
-import javax.swing.SwingUtilities;
-import javax.swing.JButton;
-import javafx.scene.Node;
-import javafx.scene.control.ToggleGroup;
-
-import com.company.LOGIC.DataManagerPseudo;
 import com.company.LOGIC.DataManager;
-import com.company.LOGIC.Game;
-import com.company.GUI_swing.*;
-import java.util.Arrays;
 
 public class Model extends javafx.application.Application {
 
@@ -33,28 +18,28 @@ public class Model extends javafx.application.Application {
     @Override
     public void init() throws Exception {
         super.init();
-        System.out.println("Inside init() method! Perform necessary initializations here.");
+        //System.out.println("Inside init() method! Perform necessary initializations here.");
         dataManager = new DataManager();
         //Game currentGame = dataManager.lotto;
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage window) throws Exception {
 
-        stage.setTitle("Million + Swing in JavaFX");
-        Parent root = FXMLLoader.load(getClass().getResource("View.fxml"));
-        //stage.setScene(new Scene(root, 1000, 800));
+        window.setTitle("Million in JavaFX");
+        Parent view = FXMLLoader.load(getClass().getResource("View.fxml"));
+        window.setScene(new Scene(view, 1200, 1000));
 
         // elements
         //SwingNode currentTable = new SwingNode();
         //createSwingContent(currentTable, new DataManagerPseudo());
         //DataManager dataManager = new DataManager();
         //System.out.println("In Model");
-        StatisticsTable statsTable = new StatisticsTable(dataManager.lotto.getBallStrategy1(), 7);
+        //StatisticsFXTable statsTable = new StatisticsFXTable(dataManager.lotto.getBallStrategy1(), 7);
 
-        StackPane pane = new StackPane();
+        //StackPane container = new StackPane();
 
-        pane.getChildren().add(root);
+        //container.getChildren().add(view);
         //pane.getChildren().add(statsTable);
 
         //pane.getChildren().addAll(root, statsTable);
@@ -63,10 +48,10 @@ public class Model extends javafx.application.Application {
         // pane.getChildren().add(swingNode);
         // Node resultpane = (Node) pane.lookup("#scrollPane");
 
-        stage.setScene(new Scene(pane, 1000, 800));
+        //window.setScene(new Scene(container, 1200, 900));
 
-        stage.setResizable(true);
-        stage.show();
+        window.setResizable(true);
+        window.show();
 
     }
 
