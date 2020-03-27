@@ -9,7 +9,7 @@ import javafx.fxml.FXMLLoader;
 
 import com.company.LOGIC.DataManager;
 
-public class Model extends javafx.application.Application {
+public class MainApplication extends javafx.application.Application {
 
     static DataManager dataManager;
 
