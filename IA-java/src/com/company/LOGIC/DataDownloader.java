@@ -2,7 +2,7 @@ package com.company.LOGIC;
 
 import java.io.*;
 
-public class DataDownloader1 {
+public class DataDownloader {
 
     // class attributes
     public static String shellFilesPath = "../";

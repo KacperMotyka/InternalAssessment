@@ -1,9 +1,7 @@
 package com.company.GUI_FX;
 
 import com.company.LOGIC.Ball;
-import com.company.LOGIC.DataDownloader1;
 import com.company.LOGIC.Game;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.embed.swing.SwingNode;

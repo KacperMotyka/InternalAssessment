@@ -1,6 +1,6 @@
 package com.company.GUI_FX;
 
-import com.company.LOGIC.DataDownloader1;
+import com.company.LOGIC.DataDownloader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
@@ -43,7 +43,7 @@ public class Model extends javafx.application.Application {
 
 
     public static void refreshModel(){
-        DataDownloader1.refreshData();
+        DataDownloader.refreshData();
         dataManager = new DataManager();
     }
 }

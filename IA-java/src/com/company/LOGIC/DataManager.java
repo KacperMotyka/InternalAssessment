@@ -18,7 +18,7 @@ public class DataManager {
     public DataManager() {
 
         // REFRESH WEB DATA WITH PYTHON
-        // DataDownloader1.refreshData();
+        // DataDownloader.refreshData();
 
         // READ JSON DATA
         String path = "";
