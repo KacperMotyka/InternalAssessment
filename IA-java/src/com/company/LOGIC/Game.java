@@ -4,15 +4,24 @@ import java.util.*;
 
 public class Game {
     private String name;
+    private String url;
     private String launchDate;
     private int totalNumberOfBalls;
     private int numberOfSelectedBalls;
     private ArrayList<Draw> drawHistory;
     private ArrayList<Ball> ballStatistics;
+    private ArrayList<Ball> twentyMostFrequentlyWinning;
+    private ArrayList<Ball> twentyLeastFrequentlyWinning;
+    private ArrayList<Ball> ballStrategy1;
+    private ArrayList<Ball> ballStrategy2;
+    private ArrayList<Ball> ballStrategy3;
+    private ArrayList<Ball> ballStrategy4;
+
 
     // CONSTRUCTOR
-    public Game(String name, String launchDate, int totalNumberOfBalls, int numberOfSelectedBalls, ArrayList<Draw> history) {
+    public Game(String name, String url, String launchDate, int totalNumberOfBalls, int numberOfSelectedBalls, ArrayList<Draw> history) {
         this.name =  name;
+        this.url = url;
         this.launchDate = launchDate;
         this.totalNumberOfBalls = totalNumberOfBalls;
         this.numberOfSelectedBalls = numberOfSelectedBalls;
@@ -21,12 +30,28 @@ public class Game {
             this.drawHistory.sort(comparatorByIdDescending);
             recalculateBallsStatistics();
         }
+        //System.out.println(" in Constructor ball statistics size :" + this.ballStatistics.size());
+        //DataManager.printArray(this.ballStatistics);
+        this.twentyMostFrequentlyWinning = new ArrayList(twentyMostFrequentlyWinning());
+        //System.out.println(" in Constructor ball statistics size :" + this.ballStatistics.size());
+        //DataManager.printArray(this.ballStatistics);
+        this.twentyLeastFrequentlyWinning = new ArrayList(twentyLeastFrequentlyWinning());
+        //System.out.println(" in Constructor ball statistics size :" + this.ballStatistics.size());
+        //DataManager.printArray(this.ballStatistics);
+        this.ballStrategy1 = calculateStrategy1();
+        this.ballStrategy2 = calculateStrategy2();
+        this.ballStrategy3 = calculateStrategy3();
+        this.ballStrategy4 = calculateStrategy4();
+
     }
 
     // GETTERS
 
     public String getName() {
         return name;
+    }
+    public String getUrl() {
+        return url;
     }
     public String getLaunchDate() {
         return launchDate;
@@ -41,6 +66,32 @@ public class Game {
         return drawHistory;
     }
     public ArrayList<Ball> getBallStatistics() { return ballStatistics; }
+    public ArrayList<Ball> getTwentyMostFrequentlyWinning() {
+        return twentyMostFrequentlyWinning;
+    }
+    public ArrayList<Ball> getTwentyLeastFrequentlyWinning() {
+        return twentyLeastFrequentlyWinning;
+    }
+    public ArrayList<Ball> getBallStrategy1() {
+        ArrayList<Ball> temp = this.ballStrategy1;
+        System.out.println("get and recalculate strategy 1");
+        this.ballStrategy1 = calculateStrategy1();
+        return temp;
+    }
+    public ArrayList<Ball> getBallStrategy2() {
+        ArrayList<Ball> temp = this.ballStrategy2;
+        System.out.println("get and recalculate strategy 2");
+        this.ballStrategy2 = calculateStrategy2();
+        return temp;
+    }
+    public ArrayList<Ball> getBallStrategy3() {
+        System.out.println("get strategy 3");
+        return this.ballStrategy3;
+    }
+    public ArrayList<Ball> getBallStrategy4() {
+        System.out.println("get  strategy 4");
+        return this.ballStrategy4;
+    }
 
     // SETTERS
     public void setLaunchDate(String launchDate) {
@@ -56,26 +107,26 @@ public class Game {
     // COMPARATORS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public Comparator<Ball> comparatorByPercentWinningDescending = new Comparator<Ball>() {
+    private Comparator<Ball> comparatorByPercentWinningDescending = new Comparator<Ball>() {
         public int compare(Ball ball1, Ball ball2) {
-            return ball1.getTotalPercentOfWinning() < ball2.getTotalPercentOfWinning()  ? 1 : 0 ;   // ball1.getTotalPercentOfWinning()  > ball2.getTotalPercentOfWinning()  ? -1 : 0;
+            return ball1.getTotalPercentOfWinning() < ball2.getTotalPercentOfWinning()  ? 1 : ball1.getTotalPercentOfWinning()  > ball2.getTotalPercentOfWinning()  ? -1 : 0;
         }
     };
 
-    public Comparator<Ball> comparatorByPercentWinningAscending = new Comparator<Ball>() {
+    private Comparator<Ball> comparatorByPercentWinningAscending = new Comparator<Ball>() {
         public int compare(Ball ball1, Ball ball2) {
-            return ball1.getTotalPercentOfWinning() > ball2.getTotalPercentOfWinning()  ? 1 : 0 ;  ///ball1.getTotalPercentOfWinning()  < ball2.getTotalPercentOfWinning()  ? -1 : 0;
+            return ball1.getTotalPercentOfWinning() > ball2.getTotalPercentOfWinning()  ? 1 : ball1.getTotalPercentOfWinning()  < ball2.getTotalPercentOfWinning()  ? -1 : 0;
         }
     };
 
-    public Comparator<Ball> comparatorByAccelerationIndexDescending = new Comparator<Ball>() {
+    private Comparator<Ball> comparatorByAccelerationIndexDescending = new Comparator<Ball>() {
         public int compare(Ball ball1, Ball ball2) {
-            return ball1.getIndexOfAcceleration() < ball2.getIndexOfAcceleration()  ? 1 : 0;       //ball1.getIndexOfAcceleration()  > ball2.getIndexOfAcceleration()  ? -1 : 0;
+            return ball1.getIndexOfAcceleration() < ball2.getIndexOfAcceleration()  ? 1 : ball1.getIndexOfAcceleration()  > ball2.getIndexOfAcceleration()  ? -1 : 0;
         }
     };
-    public Comparator<Draw> comparatorByIdDescending = new Comparator<Draw>() {
+    private Comparator<Draw> comparatorByIdDescending = new Comparator<Draw>() {
         public int compare(Draw draw1, Draw draw2) {
-            return draw1.getId() < draw2.getId()  ? 1 : 0;                                      // draw1.getId()  > draw2.getId()  ? -1 : 0;
+            return draw1.getId() < draw2.getId()  ? 1 : draw1.getId()  > draw2.getId()  ? -1 : 0;
         }
     };
 
@@ -150,7 +201,7 @@ public class Game {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Based on the historical data program will determine th following STATISTICS
+    // Based on the historical data program will determine the following STATISTICS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Entire History Winning Frequency for a number
@@ -205,29 +256,38 @@ public class Game {
     }
     // 20 most frequently winning numbers in the entire history
     public List<Ball> twentyMostFrequentlyWinning() {
+        //System.out.println(this.name + " in twenty most frequently winning");
         ArrayList<Ball> array = (ArrayList<Ball>) this.ballStatistics.clone();
-        // System.out.println("Array size:" + array.size());
+        //System.out.println("Cloned  Array size:" + array.size());
+        //DataManager.printArray(array);
         array.sort(this.comparatorByPercentWinningDescending);
-        // System.out.println("Array size:" + array.size());
+        //System.out.println("Sorted Array size:" + array.size());
+        //DataManager.printArray(array);
         return array.subList(0, 20);
     }
 
     // 20 least frequently winning numbers in the entire history
     public List<Ball>  twentyLeastFrequentlyWinning() {
+        //System.out.println(this.name + " in twenty least frequently winning");
         ArrayList<Ball> array = (ArrayList<Ball>) this.ballStatistics.clone();
-        // System.out.println("Array size:" + array.size());
+        //System.out.println("Cloned  Array size:" + array.size());
+        //DataManager.printArray(array);
         array.sort(this.comparatorByPercentWinningAscending);
-        // System.out.println("Array size:" + array.size());
+        //System.out.println("Sorted Array size:" + array.size());
+        //DataManager.printArray(array);
         return array.subList(0, 20);
+
     }
 
-    // 20 least frequently winning numbers in the entire history
-    public List<Ball> allBalls() {
+    // all Balls sorted
+    public ArrayList<Ball> allBalls() {
+        //System.out.println(this.name + " in all balls");
         ArrayList<Ball> array = (ArrayList<Ball>) this.ballStatistics.clone();
+        //System.out.println("all Balls sorted");
         // System.out.println("Array size:" + array.size());
         array.sort(this.comparatorByPercentWinningAscending);
         // System.out.println("Array size:" + array.size());
-        return array.subList(0, this.totalNumberOfBalls);
+        return array;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -236,33 +296,35 @@ public class Game {
 
     //    Most Frequent Random
     //    From the 20 most frequently winning numbers program will randomly choose a set of numbers, containing 6 numbers each for Lotto and ... numbers each for EuroJackpot.
-    public Ball[] calculateStrategy1(){
-        List<Ball> balls = this.twentyMostFrequentlyWinning();
-        // printArray(balls);
-        Random rand = new Random();
-        Ball[] result = new Ball[this.numberOfSelectedBalls];
-        for (int i=0; i < result.length; i++) {
-            int index = rand.nextInt(balls.size());
-            result[i] = balls.get(index);
-            balls.remove(index);
+    public ArrayList<Ball> calculateStrategy1(){
+        //System.out.println("inside calculateStrategy1");
+        ArrayList<Ball> twentyMost = (ArrayList<Ball>)this.twentyMostFrequentlyWinning.clone();
+        //DataManager.printArray(twentyMost);
+        Random randomDrawer = new Random();
+        ArrayList<Ball> result = new ArrayList<Ball>();
+        for (int i=0; i < this.numberOfSelectedBalls; i++) {
+            int index = randomDrawer.nextInt(twentyMost.size());
+            Ball drawn = twentyMost.get(index);
+            result.add(drawn);
+            twentyMost.remove(index);
         }
         return result;
     }
 
     //    Least Frequent Random
     //    From the 20 least frequently winning program will randomly choose a set of numbers, containing 6 numbers each.
-    public Ball[] calculateStrategy2(){
-
-        List<Ball> balls = this.twentyLeastFrequentlyWinning();
-        //printArray(balls);
+    public ArrayList<Ball> calculateStrategy2(){
+        //System.out.println("inside calculateStrategy2");
+        ArrayList<Ball> twentyLeast = (ArrayList<Ball>)this.twentyLeastFrequentlyWinning.clone();
+        //DataManager.printArray(twentyMost);
         Random randomDrawer = new Random();
-        Ball[] result = new Ball[this.numberOfSelectedBalls];
-        for (int i=0; i < result.length; i++) {
-            int index = randomDrawer.nextInt(balls.size());
-            result[i] = balls.get(index);
-            balls.remove(index);
+        ArrayList<Ball> result = new ArrayList<Ball>();
+        for (int i=0; i < this.numberOfSelectedBalls; i++) {
+            int index = randomDrawer.nextInt(twentyLeast.size());
+            Ball drawn = twentyLeast.get(index);
+            result.add(drawn);
+            twentyLeast.remove(index);
         }
-
         return result;
     }
 
@@ -271,11 +333,13 @@ public class Game {
     //    Index of acceleration = [Winning Percent from the last 15 draws] + 1.25 * [Winning Percent from the last 10 draws] + 1.5 * [Winning Percent from the last 5 draws]
     //    Program will then choose 6 numbers with the highest IoA.
 
-    public List<Ball> calculateStrategy3(){
-        List<Ball> twentyMost = this.twentyMostFrequentlyWinning();
+    public ArrayList<Ball> calculateStrategy3(){
+        //System.out.println("inside calculateStrategy3");
+        ArrayList<Ball> twentyMost = (ArrayList<Ball>)this.twentyMostFrequentlyWinning.clone();
         //printArray(twentyMost);
         twentyMost.sort(this.comparatorByAccelerationIndexDescending);
-        return twentyMost.subList(0, this.numberOfSelectedBalls);
+        ArrayList<Ball> result = new ArrayList<>(twentyMost.subList(0, this.numberOfSelectedBalls));
+        return result;
     }
 
     //    Least Frequent Random with “Acceleration”
@@ -283,10 +347,12 @@ public class Game {
     //    Index of acceleration = [Winning Percent from the last 15 draws] + 1.25 * [Winning Percent from the last 10 draws] + 1.5 * [Winning Percent from the last 5 draws]
     //    Program will then choose 6 numbers with the highest IoA.
 
-    public List<Ball> calculateStrategy4(){
-        List<Ball> twentyLeast = this.twentyLeastFrequentlyWinning();
-        //printArray(twentyLeast);
+    public ArrayList<Ball> calculateStrategy4(){
+        //System.out.println("inside calculateStrategy4");
+        ArrayList<Ball> twentyLeast = (ArrayList<Ball>)this.twentyLeastFrequentlyWinning.clone();
+        //printArray(twentyMost);
         twentyLeast.sort(this.comparatorByAccelerationIndexDescending);
-        return twentyLeast.subList(0, this.numberOfSelectedBalls);
+        ArrayList<Ball> result = new ArrayList<Ball>(twentyLeast.subList(0, this.numberOfSelectedBalls));
+        return result;
     }
 }
