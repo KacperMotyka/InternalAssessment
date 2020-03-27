@@ -42,16 +42,16 @@ public class DataManager {
         ArrayList<String> multiLottoJSONList = DataReader.parseFileContent (miniLottoFile);
         ArrayList<Draw> multiLottoHistory = DataReader.convertStringArrayToDrawHistory(miniLottoJSONList);
 
-        this.lotto = new Game ("lotto", "../../../../img/lotto.png", "1957-03-07", 49, 6, lottoHistory);
-        this.miniLotto = new Game ("miniLotto", "../../../../img/miniLotto.png", "30-12-1981", 42, 5, miniLottoHistory);
-        this.multiLotto = new Game ("multiLotto", "../../../../img/multiLotto.png", "18-03-1996", 80, 20, multiLottoHistory);
+        this.lotto = new Game ("Lotto", "../../../../img/lotto.png", "1957-03-07", 49, 6, lottoHistory);
+        this.miniLotto = new Game ("Mini Lotto", "../../../../img/miniLotto.png", "30-12-1981", 42, 5, miniLottoHistory);
+        this.multiLotto = new Game ("Multi Lotto", "../../../../img/multiLotto.png", "18-03-1996", 80, 20, multiLottoHistory);
 
 
         Draw draw1 = new Draw(1, "21-02-2020", new ArrayList<Integer> (Arrays.asList(1,2,7,11,34,16)));
         Draw draw2 = new Draw(2, "28-02-2020", new ArrayList<Integer> (Arrays.asList(1,22,17,12,24,36)));
-        Draw draw3 = new Draw(3, "01-03-2020", new ArrayList<Integer> (Arrays.asList(9,23,5,11,37,6)));
+        Draw draw3 = new Draw(3, "25-03-2020", new ArrayList<Integer> (Arrays.asList(9,23,5,11,37,6)));
 
-       this.euroJack = new Game ("euroJack", "../../../../img/euroJack.png", "30-12-2000", 49, 6, new ArrayList<Draw>(Arrays.asList(draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3)));
+       this.euroJack = new Game ("Euro Jack", "../../../../img/euroJack.png", "30-12-2000", 49, 6, new ArrayList<Draw>(Arrays.asList(draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3)));
 
         // The same with DataReader class
         // DataReader lottoDataReader = new DataReader(gameOneName);
