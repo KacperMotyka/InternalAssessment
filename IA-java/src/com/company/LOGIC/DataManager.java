@@ -197,7 +197,8 @@ public class DataManager {
     public static void printArray(Ball[] list, String attribute){
         if (attribute.equals("to string")) {
             for (int i = 0; i < list.length; i++) {
-                System.out.println("----------------------------------------------------------------------------------------------------------------------------------------- ");
+                System.1
+                    .println("----------------------------------------------------------------------------------------------------------------------------------------- ");
                 System.out.println(list[i].toString());
             }
         }
