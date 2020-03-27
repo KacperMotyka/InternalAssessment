@@ -1,6 +1,7 @@
 package com.company.GUI_FX;
 
 import com.company.LOGIC.Ball;
+import com.company.LOGIC.DataDownloader1;
 import com.company.LOGIC.Game;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -26,8 +27,7 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
         static Game currentGame;
-        static String currentChoice;
-        List<Ball> currentResults;
+        static List<Ball> currentResults;
 
         private StringProperty currentGameProperty = new SimpleStringProperty();
         private StringProperty currentStrategyProperty = new SimpleStringProperty();
@@ -70,41 +70,21 @@ public class Controller implements Initializable {
         @Override
         public void initialize(URL location, ResourceBundle resources) {
 
-                /// SET DEFAULT GAME : LOTTO ////
-                currentGame = Model.dataManager.lotto;
-
-                /// SET LABEL FOR GAME ///
-                setCurrentGameProperty(currentGame.getName() + " Game : Last drawing " + currentGame.getHistory().get(0).getDate());
-                currentGameLabel.textProperty().bind(currentGameProperty);
-
-                /// SET DEFAULT RESULTS : STRATEGY 1///
-                List<Ball> currentResults = currentGame.getBallStrategy1();
-
-                /// SET DEAFAULT LABELS FOR RESULTS ///
-                setCurrentStrategyProperty("Prediction 1 : Random choice from 20 MOST frequent");
-                currentStrategyLabel.textProperty().bind(currentStrategyProperty);
-
-                /// CREATE DEFAULT RESULT TABLES : STRATEGY 1 ////
-                createAndSetPredictionGrid(predictionGrid, currentResults);
-                createStatisticsJTable(statsJTable, currentResults, 1);
-
-                //// SET DEFAULT IMMAGE for DEFAULT GAME :  LOTTO.PNG  /////
-                File file2 = new File("img/lotto.png");
-                Image image2 = new Image(file2.toURI().toString());
-                currentLogo.setImage(image2);
-
-                //// SET LOGO IMMAGE  /////
-                File file = new File("img/million.png");
-                Image image = new Image(file.toURI().toString());
-                logo.setImage(image);
+        setDefaultResults();
 
         }
+
 
 
         ///////////////////////////////////////////////////
         //// ACTION EVENT CHANGE STATE FXML METHODS
         ///////////////////////////////////////////////////
 
+        @FXML
+        void refreshDataButton(ActionEvent event) {
+                //Model.refreshModel();
+                setDefaultResults();
+        }
 
         @FXML
         void chooseGameRadio(ActionEvent event) {
@@ -196,15 +176,42 @@ public class Controller implements Initializable {
                 }
         }
 
-        @FXML
-        void refreshDataButton(ActionEvent event) {
-        }
+
 
 
         ///////////////////////////////////////////////////
         //// PRIVATE METHODS
         ///////////////////////////////////////////////////
 
+        private void setDefaultResults(){
+                /// SET DEFAULT GAME : LOTTO ////
+                currentGame = Model.dataManager.lotto;
+
+                /// SET LABEL FOR GAME ///
+                setCurrentGameProperty(currentGame.getName() + " Game : Last drawing " + currentGame.getHistory().get(0).getDate());
+                currentGameLabel.textProperty().bind(currentGameProperty);
+
+                /// SET DEFAULT RESULTS : STRATEGY 1///
+                List<Ball> currentResults = currentGame.getBallStrategy1();
+
+                /// SET DEAFAULT LABELS FOR RESULTS ///
+                setCurrentStrategyProperty("Prediction 1 : Random choice from 20 MOST frequent");
+                currentStrategyLabel.textProperty().bind(currentStrategyProperty);
+
+                /// CREATE DEFAULT RESULT TABLES : STRATEGY 1 ////
+                createAndSetPredictionGrid(predictionGrid, currentResults);
+                createStatisticsJTable(statsJTable, currentResults, 1);
+
+                //// SET DEFAULT IMMAGE for DEFAULT GAME :  LOTTO.PNG  /////
+                File file2 = new File("img/lotto.png");
+                Image image2 = new Image(file2.toURI().toString());
+                currentLogo.setImage(image2);
+
+                //// SET LOGO IMMAGE  /////
+                File file = new File("img/million.png");
+                Image image = new Image(file.toURI().toString());
+                logo.setImage(image);
+        }
         private void createAndSetPredictionGrid(SwingNode swingNode, List<Ball> results) {
 
                 //System.out.println("### prediction grid");

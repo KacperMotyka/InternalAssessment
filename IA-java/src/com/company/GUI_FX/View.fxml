@@ -134,7 +134,7 @@
                   </VBox>
                   <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <RadioButton fx:id="stat5" mnemonicParsing="false" onAction="#chooseResultsRadio" text="Statistics 20+" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
+                        <RadioButton fx:id="stat5" minWidth="-Infinity" mnemonicParsing="false" onAction="#chooseResultsRadio" prefHeight="36.0" prefWidth="160.0" text="Statistics 20+" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
                            <padding>
                               <Insets bottom="6.0" left="1.0" right="10.0" top="6.0" />
                            </padding>
@@ -145,7 +145,7 @@
                               <Insets right="20.0" />
                            </VBox.margin>
                         </RadioButton>
-                        <RadioButton fx:id="stat6" mnemonicParsing="false" onAction="#chooseResultsRadio" text="Statistics 20-" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
+                        <RadioButton fx:id="stat6" minWidth="-Infinity" mnemonicParsing="false" onAction="#chooseResultsRadio" prefWidth="160.0" text="Statistics 20 -" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
                            <padding>
                               <Insets bottom="6.0" left="1.0" right="10.0" top="6.0" />
                            </padding>
@@ -156,7 +156,7 @@
                               <Insets right="20.0" />
                            </VBox.margin>
                         </RadioButton>
-                        <RadioButton fx:id="stat7" mnemonicParsing="false" onAction="#chooseResultsRadio" text="Statistics All" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
+                        <RadioButton fx:id="stat7" minWidth="-Infinity" mnemonicParsing="false" onAction="#chooseResultsRadio" prefWidth="160.0" text="Statistics All  " textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
                            <padding>
                               <Insets bottom="6.0" left="1.0" right="10.0" top="6.0" />
                            </padding>
