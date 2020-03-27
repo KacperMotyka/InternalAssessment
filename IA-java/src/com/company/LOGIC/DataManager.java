@@ -1,10 +1,10 @@
 package com.company.LOGIC;
 
-import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,30 +12,45 @@ public class DataManager {
 
     public Game lotto;
     public Game miniLotto;
+    public Game multiLotto;
 
     public DataManager() {
 
         // REFRESH WEB DATA WITH PYTHON
-        DataDownloader1.refreshData();
+        // DataDownloader1.refreshData();
 
         // READ JSON DATA
         String path = "";
         JSONParser jsonParser =  new JSONParser();
 
         String gameOneName = "lotto";
-        String fileNameOne = path + gameOneName + "-history.json";
-        FileReader lottoFile = DataReader.readFile (fileNameOne);
-        JSONArray lottoJSONList = DataReader.parseFileContent (lottoFile, jsonParser);
-        ArrayList<Draw> lottoHistory = DataReader.convertJSONArrayToDrawHistory(lottoJSONList);
+        String fileNameOne = path + gameOneName + "-history.txt";
+        BufferedReader lottoFile = DataReader.readFile (fileNameOne);
+        ArrayList<String> lottoJSONList = DataReader.parseFileContent (lottoFile);
+        ArrayList<Draw> lottoHistory = DataReader.convertStringArrayToDrawHistory(lottoJSONList);
 
         String gameTwoName = "mini-lotto";
-        String fileNameTwo = path + gameTwoName + "-history.json";
-        FileReader miniLottoFile = DataReader.readFile (fileNameTwo);
-        JSONArray miniLottoJSONList = DataReader.parseFileContent (miniLottoFile, jsonParser);
-        ArrayList<Draw> miniLottoHistory = DataReader.convertJSONArrayToDrawHistory(miniLottoJSONList);
+        String fileNameTwo = path + gameTwoName + "-history.txt";
+        BufferedReader miniLottoFile = DataReader.readFile (fileNameTwo);
+        ArrayList<String> miniLottoJSONList = DataReader.parseFileContent (miniLottoFile);
+        ArrayList<Draw> miniLottoHistory = DataReader.convertStringArrayToDrawHistory(miniLottoJSONList);
 
-        this.lotto = new Game ("lotto", "1957-03-07", 49, 6, lottoHistory);
-        this.miniLotto = new Game ("miniLotto", "30-12-1981", 42, 5, miniLottoHistory);
+        String game3Name = "multi-lotto";
+        String file3Two = path + gameTwoName + "-history.txt";
+        BufferedReader multiLottoFile = DataReader.readFile (fileNameTwo);
+        ArrayList<String> multiLottoJSONList = DataReader.parseFileContent (miniLottoFile);
+        ArrayList<Draw> multiLottoHistory = DataReader.convertStringArrayToDrawHistory(miniLottoJSONList);
+
+        this.lotto = new Game ("lotto", "../../../../img/lotto.png", "1957-03-07", 49, 6, lottoHistory);
+        this.miniLotto = new Game ("miniLotto", "../../../../img/miniLotto.png", "30-12-1981", 42, 5, miniLottoHistory);
+        this.multiLotto = new Game ("multiLotto", "../../../../img/multiLotto.png", "18-03-1996", 80, 20, multiLottoHistory);
+
+
+        Draw draw1 = new Draw(1, "21-02-2020", new ArrayList<Integer> (Arrays.asList(1,2,7,11,34,16)));
+        Draw draw2 = new Draw(2, "28-02-2020", new ArrayList<Integer> (Arrays.asList(1,22,17,12,24,36)));
+        Draw draw3 = new Draw(3, "01-03-2020", new ArrayList<Integer> (Arrays.asList(9,23,5,11,37,6)));
+
+       // this.euroJack = new Game ("euroJack", "../../../../img/euroJack.png", "30-12-2000", 49, 6, new ArrayList<Draw>(Arrays.asList(draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3)));
 
         // The same with DataReader class
         // DataReader lottoDataReader = new DataReader(gameOneName);
@@ -44,24 +59,24 @@ public class DataManager {
     }
     public static void main(String[] args) {
         DataManager app = new DataManager();
-        DataManager.menuGame(app.lotto, app.miniLotto);
+        app.chooseGame();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // MENUS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static void menuGame(Game lotto, Game miniLotto){
+    public void chooseGame(){
 
         int game  = -1;
         while (game != 0) {
             game = menuChooseGame();
             switch (game) {
                 case 1:
-                    menuStrategy(lotto);
+                    chooseStrategy(this.lotto);
                     break;
                 case 2:
-                    menuStrategy(miniLotto);
+                    chooseStrategy(this.miniLotto);
                     break;
             }
         }
@@ -80,7 +95,7 @@ public class DataManager {
         return choice;
     }
 
-    public static void menuStrategy(Game currentGame){
+    public static void chooseStrategy(Game currentGame){
         String name = currentGame.getName();
         String lastUpdate = currentGame.getHistory().get(0).getDate();
         int strategy = -1;
@@ -90,36 +105,36 @@ public class DataManager {
                 case 1:
                     System.out.print("\n"+ name.toUpperCase()+ " GAME : Last draw " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 1: ");
                     System.out.println("Random choice from twenty most frequently winning\n");
-                    Ball[] results1 = currentGame.calculateStrategy1();
+                    List<Ball> results1 = currentGame.getBallStrategy1();
                     printArray(results1, "to string");
                     break;
                 case 2:
                     System.out.print("\n"+ name.toUpperCase()+ " GAME : Last draw " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 2: ");
                     System.out.println("Random choice from twenty least frequently winning\n");
-                    Ball[] results2 = currentGame.calculateStrategy2();
+                    List<Ball> results2 = currentGame.getBallStrategy2();
                     printArray(results2, "to string");
 
                     break;
                 case 3:
                     System.out.print("\n"+ name.toUpperCase()+ " GAME : Last draw " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 3: ");
                     System.out.println("Best Accelaration Index from twenty most frequently winning\n");
-                    List<Ball> results3 = currentGame.calculateStrategy3();
+                    List<Ball> results3 = currentGame.getBallStrategy3();
                     printArray(results3, "to string");
                     break;
                 case 4:
                     System.out.print("\n"+ name.toUpperCase()+ " GAME : Last draw " + lastUpdate + "\nBalls best choice for next drawing according to Strategy 4: ");
                     System.out.println("Best Accelaration Index from twenty least frequently winning\n");
-                    List<Ball> results4  = currentGame.calculateStrategy4();
+                    List<Ball> results4  = currentGame.getBallStrategy4();
                     printArray(results4, "to string");
                     break;
                 case 5:
                     System.out.println("\n"+ name.toUpperCase()+ " GAME : Last draw " + lastUpdate + "\nStatistics for twenty most frequently winning\n");
-                    List<Ball> balls1 = currentGame.twentyMostFrequentlyWinning();
+                    List<Ball> balls1 = currentGame.getTwentyMostFrequentlyWinning();
                     printArray(balls1, "to string");
                     break;
                 case 6:
                     System.out.println("\n"+ name.toUpperCase()+ " GAME : Last draw " + lastUpdate + "\nStatistics for twenty least frequently winning\n");
-                    List<Ball> balls2 = currentGame.twentyLeastFrequentlyWinning();
+                    List<Ball> balls2 = currentGame.getTwentyLeastFrequentlyWinning();
                     printArray(balls2, "to string");
                     break;
                 case 7:

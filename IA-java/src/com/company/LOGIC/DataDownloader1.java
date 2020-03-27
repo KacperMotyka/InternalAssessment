@@ -10,10 +10,9 @@ public class DataDownloader1 {
     public static String pythonFilesPath = "../IA-java/";
     public static String whichPython = "python";
 
-    public static void refreshData() {
+    public static void refreshDataPython() {
         String pythonScriptName = pythonFilesPath + "download_data.py";
         System.out.println(pythonScriptName);
-
 
         ProcessBuilder pb = new ProcessBuilder( pythonScriptName);
         try {
@@ -22,12 +21,25 @@ public class DataDownloader1 {
             int result = p.waitFor();
         } catch(Exception e){
 
-
-
             //System.out.print(e.getMessage());
         }
     }
 
+    public static void refreshData()  {
+
+        String shellScriptName = "download.sh";
+        String[] command = {"sh", shellScriptName};
+        try {
+            Runtime rt = Runtime.getRuntime();
+            Process pr = rt.exec(command);
+            pr.waitFor();
+            System.out.println("New TXT files for downloaded");
+        } catch (Exception e){
+            System.out.println("Problem executing command: "+ command[0] + " " + command[1]);
+            System.out.print(e.getMessage());
+
+        }
+    }
 
 
 }
