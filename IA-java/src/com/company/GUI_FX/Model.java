@@ -23,53 +23,41 @@ import com.company.LOGIC.DataManagerPseudo;
 import com.company.LOGIC.DataManager;
 import com.company.LOGIC.Game;
 import com.company.GUI_swing.*;
+import java.util.Arrays;
 
 public class Model extends javafx.application.Application {
 
-    DataManagerPseudo dataManager;
-    Game currentGame;
-
-
-    private void createSwingContent(final SwingNode swingNode, DataManagerPseudo dataManager) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                //swingNode.setContent(new JButton("Click me!"));
-                //swingNode.setContent(new HTMLButton());
-                swingNode.setContent(new StrategyTableComponent(new Integer[]{1,12,3,34,5,46}));
-            }
-
-        });
-    }
+    //static final DataManager dataManager = new DataManager();
+    static DataManager dataManager;
 
     @Override
     public void init() throws Exception {
         super.init();
         System.out.println("Inside init() method! Perform necessary initializations here.");
-        //DataManagerPseudo dataManager = new  DataManagerPseudo();
+        dataManager = new DataManager();
         //Game currentGame = dataManager.lotto;
     }
-    /*
-    private Model(DataManager dataManager){
-        this.data = dataManager;
-        this.currentGame = data.lotto;
-    }
-*/
+
     @Override
     public void start(Stage stage) throws Exception {
 
         stage.setTitle("Million + Swing in JavaFX");
-
         Parent root = FXMLLoader.load(getClass().getResource("View.fxml"));
         //stage.setScene(new Scene(root, 1000, 800));
 
+        // elements
         //SwingNode currentTable = new SwingNode();
         //createSwingContent(currentTable, new DataManagerPseudo());
+        //DataManager dataManager = new DataManager();
+        //System.out.println("In Model");
+        StatisticsTable statsTable = new StatisticsTable(dataManager.lotto.getBallStrategy1(), 7);
+
         StackPane pane = new StackPane();
 
         pane.getChildren().add(root);
-        //pane.getChildren().add(currentTable);
-        //pane.getChildren().addAll(root, currentTable);
+        //pane.getChildren().add(statsTable);
+
+        //pane.getChildren().addAll(root, statsTable);
 
         // System.out.println(pane.getChildren().get(0).toString());
         // pane.getChildren().add(swingNode);
@@ -82,18 +70,14 @@ public class Model extends javafx.application.Application {
 
     }
 
-
     @Override
     public void stop() throws Exception {
         super.stop();
-        System.out.println("Inside stop() method! Destroy resources. Perform Cleanup.");
+        // System.out.println("Inside stop() method! Destroy resources. Perform Cleanup.");
         // save results
     }
 
     public static void main(String[] args) {
-
-        //DataManagerPseudo dataManager = new  DataManagerPseudo();
-        //Model model = new Model(dataManager);
         launch(args);
     }
 }

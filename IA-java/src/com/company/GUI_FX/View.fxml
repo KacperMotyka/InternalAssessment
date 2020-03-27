@@ -24,7 +24,7 @@
                <items>
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <RadioButton mnemonicParsing="false" onAction="#chooseGameRadio" text="Lotto" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+                        <RadioButton fx:id="lotto" mnemonicParsing="false" onAction="#chooseGameRadio" selected="true" text="Lotto" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                            <toggleGroup>
                               <ToggleGroup fx:id="Action1" />
                            </toggleGroup>
@@ -38,7 +38,7 @@
                               <Insets right="20.0" />
                            </VBox.margin>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" onAction="#chooseGameRadio" selected="true" text="Minilotto" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action1">
+                        <RadioButton fx:id="miniLotto" mnemonicParsing="false" onAction="#chooseGameRadio" text="Minilotto" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action1">
                            <font>
                               <Font name="Helvetica Neue" size="18.0" />
                            </font>
@@ -49,7 +49,7 @@
                               <Insets right="20.0" />
                            </VBox.margin>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" onAction="#chooseGameRadio" text="Eurojackpot" textAlignment="CENTER" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action1">
+                        <RadioButton fx:id="euroJack" mnemonicParsing="false" onAction="#chooseGameRadio" text="Eurojackpot" textAlignment="CENTER" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action1">
                            <font>
                               <Font name="Helvetica Neue" size="18.0" />
                            </font>
@@ -67,7 +67,7 @@
                   </VBox>
                   <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <RadioButton mnemonicParsing="false" onAction="#chooseResultsRadio" text="Strategia 1" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+                        <RadioButton fx:id="strat1" mnemonicParsing="false" onAction="#chooseResultsRadio" selected="true" text="Strategia 1" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
 
                            <toggleGroup>
                               <ToggleGroup fx:id="Action2" />
@@ -82,7 +82,7 @@
                               <Insets right="20.0" />
                            </VBox.margin>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" onAction="#chooseResultsRadio" text="Strategia 2" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
+                        <RadioButton fx:id="strat2" mnemonicParsing="false" onAction="#chooseResultsRadio" text="Strategia 2" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
                            <font>
                               <Font name="Helvetica Neue" size="18.0" />
                            </font>
@@ -93,7 +93,7 @@
                               <Insets right="20.0" />
                            </VBox.margin>
                         </RadioButton>
-                        <RadioButton layoutX="10.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseResultsRadio" text="Strategia 3" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
+                        <RadioButton fx:id="strat3" layoutX="10.0" layoutY="120.0" mnemonicParsing="false" onAction="#chooseResultsRadio" text="Strategia 3" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
                            <font>
                               <Font name="Helvetica Neue" size="18.0" />
                            </font>
@@ -104,7 +104,7 @@
                               <Insets right="20.0" />
                            </VBox.margin>
                         </RadioButton>
-                        <RadioButton layoutX="10.0" layoutY="87.0" mnemonicParsing="false" onAction="#chooseResultsRadio" selected="true" text="Strategia 4" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
+                        <RadioButton fx:id="strat4" layoutX="10.0" layoutY="87.0" mnemonicParsing="false" onAction="#chooseResultsRadio" text="Strategia 4" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
                            <font>
                               <Font name="Helvetica Neue" size="18.0" />
                            </font>
@@ -122,7 +122,7 @@
                   </VBox>
                   <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <RadioButton mnemonicParsing="false" onAction="#chooseResultsRadio" text="Statystyki" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
+                        <RadioButton fx:id="stat5" mnemonicParsing="false" onAction="#chooseResultsRadio" text="Statystyki" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
                            <padding>
                               <Insets bottom="6.0" left="1.0" right="10.0" top="6.0" />
                            </padding>
@@ -133,7 +133,7 @@
                               <Insets right="20.0" />
                            </VBox.margin>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" onAction="#chooseResultsRadio" selected="true" text="Statystyki" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
+                        <RadioButton fx:id="stat6" mnemonicParsing="false" onAction="#chooseResultsRadio" text="Statystyki" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
                            <padding>
                               <Insets bottom="6.0" left="1.0" right="10.0" top="6.0" />
                            </padding>
@@ -144,7 +144,7 @@
                               <Insets right="20.0" />
                            </VBox.margin>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" onAction="#chooseResultsRadio" text="Statystyki" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
+                        <RadioButton fx:id="stat7" mnemonicParsing="false" onAction="#chooseResultsRadio" text="Statystyki" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="WORD_ELLIPSIS" toggleGroup="$Action2">
                            <padding>
                               <Insets bottom="6.0" left="1.0" right="10.0" top="6.0" />
                            </padding>
@@ -168,7 +168,7 @@
                <children>
                   <HBox prefHeight="60.0" prefWidth="220.0">
                      <children>
-                        <ImageView fitHeight="67.0" fitWidth="223.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="logo" fitHeight="67.0" fitWidth="223.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../img/million.png" />
                            </image>
@@ -222,15 +222,18 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <TableView layoutX="156.0" layoutY="223.0" prefHeight="200.0" prefWidth="450.0" AnchorPane.leftAnchor="156.0" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="223.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
-                              <TableColumn prefWidth="75.0" text="C2" />
-                              <TableColumn prefWidth="75.0" text="C2" />
-                          </columns>
+                        <SwingNode fx:id="predictionGrid" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="235.0" AnchorPane.topAnchor="200.0" />
+                        <TableView fx:id="statsTable" layoutX="-39.0" layoutY="478.0" prefHeight="200.0" prefWidth="904.0">
+                           <columns>
+                              <TableColumn id="Strat1C1" fx:id="col1" editable="false" minWidth="-Infinity" prefWidth="100.0" sortable="false" text="Ball number" />
+                              <TableColumn id="Strat1C2" fx:id="col2" minWidth="-Infinity" prefWidth="120.0" text="Winning Times" />
+                              <TableColumn id="Strat1C3" fx:id="col3" minWidth="-Infinity" prefWidth="120.0" text="Winning Percent" />
+                              <TableColumn id="Strat1C3" fx:id="col4" minWidth="-Infinity" prefWidth="120.0" text="Last 15 Winning" />
+                              <TableColumn id="Strat1C3" fx:id="col5" minWidth="-Infinity" prefWidth="120.0" text="Last 10 winning" />
+                              <TableColumn id="Strat1C3" fx:id="col6" minWidth="-Infinity" prefWidth="120.0" text="Last 5 winning" />
+                              <TableColumn id="Strat1C4" fx:id="col7" minWidth="-Infinity" prefWidth="160.0" text="Index of acceleration" />
+                           </columns>
                         </TableView>
-                        <SwingNode fx:id="currentTable" />
                      </children>
                   </AnchorPane>
               </content>
