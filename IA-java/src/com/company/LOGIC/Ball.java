@@ -3,6 +3,8 @@ package com.company.LOGIC;
 import java.text.DecimalFormat;
 
 public class Ball {
+
+    // PRIVATE ATTRIBUTES
     private String number;
     private int totalNumberOfWinning;
     private double totalPercentOfWinning;
@@ -49,9 +51,6 @@ public class Ball {
     }
 
     // SETTERS
-    public void setNumber(String number) {
-        this.number = number;
-    }
     public void setTotalNumberOfWinning(int totalNumberOfWinning) {
         this.totalNumberOfWinning = totalNumberOfWinning;
     }

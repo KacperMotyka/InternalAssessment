@@ -31,13 +31,10 @@ public class Game {
             recalculateBallsStatistics();
         }
         //System.out.println(" in Constructor ball statistics size :" + this.ballStatistics.size());
-        //DataManager.printArray(this.ballStatistics);
         this.twentyMostFrequentlyWinning = new ArrayList(twentyMostFrequentlyWinning());
         //System.out.println(" in Constructor ball statistics size :" + this.ballStatistics.size());
-        //DataManager.printArray(this.ballStatistics);
         this.twentyLeastFrequentlyWinning = new ArrayList(twentyLeastFrequentlyWinning());
         //System.out.println(" in Constructor ball statistics size :" + this.ballStatistics.size());
-        //DataManager.printArray(this.ballStatistics);
         this.ballStrategy1 = calculateStrategy1();
         this.ballStrategy2 = calculateStrategy2();
         this.ballStrategy3 = calculateStrategy3();
@@ -146,15 +143,11 @@ public class Game {
     }
 
     private void recalculateTotal(){
-        //System.out.println(this.name + this.totalNumberOfBalls);
-
         // calcul frequency of each number
         List<Draw> drawList = this.drawHistory;
         for (int i =0; i < drawList.size(); i++){
             Draw draw = drawList.get(i);
             List<Integer> results = draw.getResults();
-            //Main.printArray(draw.getResults());
-            //System.out.println( draw.getId() +draw.getYear());
             for (int j = 0; j < results.size(); j++) {
                 int winningNumber = results.get(j);
                 Ball winningball = ballStatistics.get(winningNumber-1);
@@ -204,56 +197,7 @@ public class Game {
     // Based on the historical data program will determine the following STATISTICS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // Entire History Winning Frequency for a number
-    public double EHWinningFrequency (String number){
-        int index = Integer.parseInt(number) - 1;
-        return this.ballStatistics.get(index).getTotalNumberOfWinning();
-    }
-    //  Entire History Winning Percent for a number = Number of draws in which the number won /  Number of all draws
-    public double EHWinningPercent (String number){
-        int index = Integer.parseInt(number) - 1;
-        return this.ballStatistics.get(index).getTotalPercentOfWinning();
-    }
 
-    // Winning Frequency for the last 5, 10 and 15 draws for a number
-    public int[] WinningFrequencyForLastDraws(String number) {
-        int index = Integer.parseInt(number) - 1;
-        Ball ball =  this.ballStatistics.get(index);
-        int[] result = new int[3];
-        result[0] = ball.getLast5drawsWinning();
-        result[1] = ball.getLast10drawsWinning();
-        result[2] = ball.getLast15drawsWinning();
-        return result;
-    }
-    // Winning Percent for the last 5, 10 and 15 draws for a number
-    public double[] WinningPercentForLastDraws(String number) {
-        int index = Integer.parseInt(number) - 1;
-        Ball ball =  this.ballStatistics.get(index);
-        double[] result = new double[3];
-        result[0] = ball.getLast5drawsWinning()/5;
-        result[1] = ball.getLast10drawsWinning()/10;
-        result[2] = ball.getLast15drawsWinning()/15;
-        return result;
-    }
-
-    // Entire History Winning Frequency for each number
-    public double[] EHWinningFrequency (){
-        int n = this.totalNumberOfBalls;
-        double[] array = new double[n+1];
-        for (int index = 1; index <= n; index++){
-            array[index] = this.ballStatistics.get(index).getTotalNumberOfWinning();
-        }
-        return array;
-    }
-    //  Entire History Winning Percent for each number = Number of draws in which the number won /  Number of all draws
-    public double[] EHWinningPercent (){
-        int n = this.totalNumberOfBalls;
-        double[] array = new double[n+1];
-        for (int i = 1; i <= n; i++){
-            array[i] = this.ballStatistics.get(i).getTotalPercentOfWinning();
-        }
-        return array;
-    }
     // 20 most frequently winning numbers in the entire history
     public List<Ball> twentyMostFrequentlyWinning() {
         //System.out.println(this.name + " in twenty most frequently winning");

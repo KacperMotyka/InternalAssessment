@@ -7,23 +7,27 @@ import java.util.Scanner;
 
 public class ApplicationCommandLine {
 
-    DataManager manager;
+    // PRIVATE ATTRIBUTE
+    private DataManager manager;
 
+
+    // CONTRUCTOR
     public ApplicationCommandLine() {
         this.manager = new DataManager();
         chooseGame();
     }
 
-
+    // MAIN
     public static void main(String[] args) {
-
         ApplicationCommandLine app = new ApplicationCommandLine();
     }
+
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // MENUS
+    // PRIVATE COMMAND LINE MENU METHODS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void chooseGame(){
+    private void chooseGame(){
 
         int game  = -1;
         while (game != 0) {
@@ -44,7 +48,7 @@ public class ApplicationCommandLine {
             }
         }
     }
-    public static int menuChooseGame(){
+    private static int menuChooseGame(){
         Scanner scanner = new Scanner(System.in);
         String massage = "" +
                 "\n------------------------------------------------------------------------------------------  " +
@@ -60,7 +64,7 @@ public class ApplicationCommandLine {
         return choice;
     }
 
-    public static void chooseStrategy(Game currentGame){
+    private static void chooseStrategy(Game currentGame){
         String name = currentGame.getName();
         String lastUpdate = currentGame.getHistory().get(0).getDate();
         int strategy = -1;
@@ -112,7 +116,7 @@ public class ApplicationCommandLine {
 
     }
 
-    public static int menuChooseStrategy(String name){
+    private static int menuChooseStrategy(String name){
         Scanner scanner = new Scanner(System.in);
         String massage = ""+
                 "\n------------------------------------------------------------------------------------------ " +
@@ -133,7 +137,7 @@ public class ApplicationCommandLine {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PRINTING
+    // PUBLIC PRINTING METHODS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static void printArray(Ball[] list){

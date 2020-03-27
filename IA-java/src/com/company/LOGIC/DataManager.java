@@ -54,10 +54,6 @@ public class DataManager {
 
 
     }
-    public static void main(String[] args) {
-        DataManager app = new DataManager();
-        //app.chooseGame();
-    }
 
 
 }
