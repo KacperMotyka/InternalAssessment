@@ -9,7 +9,7 @@ public class ApplicationCommandLine {
 
     public ApplicationCommandLine() {
         this.manager = new DataManager();
-        DataManager.menuGame(manager.lotto, manager.miniLotto);
+        manager.chooseGame();
     }
 
 
