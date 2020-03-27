@@ -1,6 +1,6 @@
 package com.company.GUI_FX;
 
-import com.company.LOGIC.DataDownloader;
+import com.company.DATA_ACCESS.DataDownloader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Parent;

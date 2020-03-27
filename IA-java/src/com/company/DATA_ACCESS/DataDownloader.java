@@ -1,4 +1,4 @@
-package com.company.LOGIC;
+package com.company.DATA_ACCESS;
 
 import java.io.*;
 

@@ -1,5 +1,6 @@
-package com.company.LOGIC;
+package com.company.DATA_ACCESS;
 
+import com.company.LOGIC.Draw;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
