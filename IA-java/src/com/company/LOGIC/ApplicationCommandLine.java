@@ -1,7 +1,5 @@
-package com.company;
+package com.company.LOGIC;
 
-
-import com.company.LOGIC.DataManager;
 
 public class ApplicationCommandLine {
 

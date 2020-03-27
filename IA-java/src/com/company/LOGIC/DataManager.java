@@ -13,6 +13,7 @@ public class DataManager {
     public Game lotto;
     public Game miniLotto;
     public Game multiLotto;
+    public Game euroJack;
 
     public DataManager() {
 
@@ -50,7 +51,7 @@ public class DataManager {
         Draw draw2 = new Draw(2, "28-02-2020", new ArrayList<Integer> (Arrays.asList(1,22,17,12,24,36)));
         Draw draw3 = new Draw(3, "01-03-2020", new ArrayList<Integer> (Arrays.asList(9,23,5,11,37,6)));
 
-       // this.euroJack = new Game ("euroJack", "../../../../img/euroJack.png", "30-12-2000", 49, 6, new ArrayList<Draw>(Arrays.asList(draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3)));
+       this.euroJack = new Game ("euroJack", "../../../../img/euroJack.png", "30-12-2000", 49, 6, new ArrayList<Draw>(Arrays.asList(draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3)));
 
         // The same with DataReader class
         // DataReader lottoDataReader = new DataReader(gameOneName);
@@ -78,6 +79,12 @@ public class DataManager {
                 case 2:
                     chooseStrategy(this.miniLotto);
                     break;
+                case 3:
+                    chooseStrategy(this.multiLotto);
+                    break;
+                case 4:
+                    chooseStrategy(this.euroJack);
+                    break;
             }
         }
     }
@@ -89,7 +96,9 @@ public class DataManager {
                 "\n------------------------------------------------------------------------------------------  " +
                 "\n\nExit ............................................................................press: 0 " +
                 "\n\nLotto Game (1957-2020): 49 balls ................................................press: 1 " +
-                "\n\nMini-Lotto Game (1981-2020): 42 balls ...........................................press: 2 ";
+                "\n\nMini-Lotto Game (1981-2020): 42 balls ...........................................press: 2 " +
+                "\n\nMulti-Lotto Game (1998-2020): 80 balls ..........................................press: 3 " +
+                "\n\nEuroJack Game (2001-2020): 49 balls .............................................press: 4 ";
         System.out.println(massage);
         int choice = scanner.nextInt();
         return choice;

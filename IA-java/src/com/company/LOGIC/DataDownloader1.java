@@ -10,21 +10,6 @@ public class DataDownloader1 {
     public static String pythonFilesPath = "../IA-java/";
     public static String whichPython = "python";
 
-    public static void refreshDataPython() {
-        String pythonScriptName = pythonFilesPath + "download_data.py";
-        System.out.println(pythonScriptName);
-
-        ProcessBuilder pb = new ProcessBuilder( pythonScriptName);
-        try {
-            pb.directory(new File(pythonFilesPath));
-            Process p = pb.start();
-            int result = p.waitFor();
-        } catch(Exception e){
-
-            //System.out.print(e.getMessage());
-        }
-    }
-
     public static void refreshData()  {
 
         String shellScriptName = "download.sh";
