@@ -3,12 +3,12 @@ package com.company.LOGIC;
 import java.util.ArrayList;
 
 public class Draw {
-    private long id;
+    private int id;
     private String date;
     private ArrayList<Integer> results;
 
     // CONSTRUCTOR
-    public Draw(long id, String date, ArrayList<Integer> results){
+    public Draw(int id, String date, ArrayList<Integer> results){
         //this.id = Integer.parseInt(id);
         this.id = id;
         this.date = date;
@@ -37,3 +37,5 @@ public class Draw {
     }
 
 }
+
+

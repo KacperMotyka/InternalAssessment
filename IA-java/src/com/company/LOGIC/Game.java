@@ -3,6 +3,7 @@ package com.company.LOGIC;
 import java.util.*;
 
 public class Game {
+
     private String name;
     private String url;
     private String launchDate;
@@ -69,18 +70,21 @@ public class Game {
     public ArrayList<Ball> getTwentyLeastFrequentlyWinning() {
         return twentyLeastFrequentlyWinning;
     }
+
+
     public ArrayList<Ball> getBallStrategy1() {
         ArrayList<Ball> temp = this.ballStrategy1;
-        System.out.println("get and recalculate strategy 1");
+        //System.out.println("get and recalculate strategy 1");
         this.ballStrategy1 = calculateStrategy1();
         return temp;
     }
     public ArrayList<Ball> getBallStrategy2() {
         ArrayList<Ball> temp = this.ballStrategy2;
-        System.out.println("get and recalculate strategy 2");
+        //System.out.println("get and recalculate strategy 2");
         this.ballStrategy2 = calculateStrategy2();
         return temp;
     }
+
     public ArrayList<Ball> getBallStrategy3() {
         System.out.println("get strategy 3");
         return this.ballStrategy3;
@@ -142,6 +146,7 @@ public class Game {
         recalculateAccelerationIndex();
     }
 
+
     private void recalculateTotal(){
         // calcul frequency of each number
         List<Draw> drawList = this.drawHistory;
@@ -199,8 +204,10 @@ public class Game {
 
 
     // 20 most frequently winning numbers in the entire history
+    //System.out.println(this.name + " in twenty most frequently winning");
+
     public List<Ball> twentyMostFrequentlyWinning() {
-        //System.out.println(this.name + " in twenty most frequently winning");
+
         ArrayList<Ball> array = (ArrayList<Ball>) this.ballStatistics.clone();
         //System.out.println("Cloned  Array size:" + array.size());
         //DataManager.printArray(array);
@@ -211,8 +218,10 @@ public class Game {
     }
 
     // 20 least frequently winning numbers in the entire history
+    //System.out.println(this.name + " in twenty least frequently winning");
+
     public List<Ball>  twentyLeastFrequentlyWinning() {
-        //System.out.println(this.name + " in twenty least frequently winning");
+
         ArrayList<Ball> array = (ArrayList<Ball>) this.ballStatistics.clone();
         //System.out.println("Cloned  Array size:" + array.size());
         //DataManager.printArray(array);
@@ -222,6 +231,8 @@ public class Game {
         return array.subList(0, 20);
 
     }
+
+
 
     // all Balls sorted
     public ArrayList<Ball> allBalls() {
@@ -238,12 +249,13 @@ public class Game {
     // Program will allow user to select a STRATEGY:
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
     //    Most Frequent Random
-    //    From the 20 most frequently winning numbers program will randomly choose a set of numbers, containing 6 numbers each for Lotto and ... numbers each for EuroJackpot.
+    //    From the 20 most frequently winning numbers program will randomly choose a set of numbers,
+    //    containing 6 numbers each for Lotto and ... numbers each for EuroJackpot.
+
     public ArrayList<Ball> calculateStrategy1(){
-        //System.out.println("inside calculateStrategy1");
         ArrayList<Ball> twentyMost = (ArrayList<Ball>)this.twentyMostFrequentlyWinning.clone();
-        //DataManager.printArray(twentyMost);
         Random randomDrawer = new Random();
         ArrayList<Ball> result = new ArrayList<Ball>();
         for (int i=0; i < this.numberOfSelectedBalls; i++) {
@@ -255,12 +267,14 @@ public class Game {
         return result;
     }
 
+
+
     //    Least Frequent Random
-    //    From the 20 least frequently winning program will randomly choose a set of numbers, containing 6 numbers each.
+    //    From the 20 least frequently winning program will randomly choose a set of numbers,
+    //    containing 6 numbers each.
+
     public ArrayList<Ball> calculateStrategy2(){
-        //System.out.println("inside calculateStrategy2");
         ArrayList<Ball> twentyLeast = (ArrayList<Ball>)this.twentyLeastFrequentlyWinning.clone();
-        //DataManager.printArray(twentyMost);
         Random randomDrawer = new Random();
         ArrayList<Ball> result = new ArrayList<Ball>();
         for (int i=0; i < this.numberOfSelectedBalls; i++) {
@@ -272,31 +286,38 @@ public class Game {
         return result;
     }
 
+
+
     //    Most Frequent Random with “Acceleration”
-    //    For each number in set of “20 most frequently winning numbers” the program will calculate Index of Acceleration using the following formula:
-    //    Index of acceleration = [Winning Percent from the last 15 draws] + 1.25 * [Winning Percent from the last 10 draws] + 1.5 * [Winning Percent from the last 5 draws]
+    //    For each number in set of “20 most frequently winning numbers” the program will calculate
+    //    Index of Acceleration using the following formula:
+    //    Index of acceleration = [Winning Percent from the last 15 draws] +
+    //    1.25 * [Winning Percent from the last 10 draws] + 1.5 * [Winning Percent from the last 5 draws]
     //    Program will then choose 6 numbers with the highest IoA.
 
+
     public ArrayList<Ball> calculateStrategy3(){
-        //System.out.println("inside calculateStrategy3");
         ArrayList<Ball> twentyMost = (ArrayList<Ball>)this.twentyMostFrequentlyWinning.clone();
-        //printArray(twentyMost);
         twentyMost.sort(this.comparatorByAccelerationIndexDescending);
         ArrayList<Ball> result = new ArrayList<>(twentyMost.subList(0, this.numberOfSelectedBalls));
         return result;
     }
 
+
     //    Least Frequent Random with “Acceleration”
-    //    For each number in set of “20 least frequently winning numbers” the program will calculate Index of Acceleration (IoA) using the following formula:
-    //    Index of acceleration = [Winning Percent from the last 15 draws] + 1.25 * [Winning Percent from the last 10 draws] + 1.5 * [Winning Percent from the last 5 draws]
+    //    For each number in set of “20 least frequently winning numbers” the program will calculate
+    //    Index of Acceleration (IoA) using the following formula:
+    //    Index of acceleration = [Winning Percent from the last 15 draws] +
+    //    1.25 * [Winning Percent from the last 10 draws] + 1.5 * [Winning Percent from the last 5 draws]
     //    Program will then choose 6 numbers with the highest IoA.
 
+
     public ArrayList<Ball> calculateStrategy4(){
-        //System.out.println("inside calculateStrategy4");
         ArrayList<Ball> twentyLeast = (ArrayList<Ball>)this.twentyLeastFrequentlyWinning.clone();
-        //printArray(twentyMost);
         twentyLeast.sort(this.comparatorByAccelerationIndexDescending);
         ArrayList<Ball> result = new ArrayList<Ball>(twentyLeast.subList(0, this.numberOfSelectedBalls));
         return result;
     }
+
+
 }

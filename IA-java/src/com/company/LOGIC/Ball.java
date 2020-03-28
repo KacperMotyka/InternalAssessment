@@ -57,10 +57,15 @@ public class Ball {
     public void setTotalPercentOfWinning(double totalPercentOfWinning) {
         this.totalPercentOfWinning = totalPercentOfWinning;
     }
+
+
     public void setLast15drawsWinning(int last15drawsWinning) {
         this.last15drawsWinning = last15drawsWinning;
         updateIndexOfAcceleration();
     }
+
+
+
     public void setLast10drawsWinning(int last10drawsWinning) {
         this.last10drawsWinning = last10drawsWinning;
         updateIndexOfAcceleration();
@@ -83,6 +88,10 @@ public class Ball {
 
     // METHODS
     public void updateIndexOfAcceleration() {
-        this.indexOfAcceleration = last15drawsWinning/15 + 1.25 * last10drawsWinning/10 + 1.5 * last5drawsWinning/5;
+        this.indexOfAcceleration =
+                1 * last15drawsWinning/15 +
+                1.25 * last10drawsWinning/10 +
+                1.5 * last5drawsWinning/5;
     }
 }
+

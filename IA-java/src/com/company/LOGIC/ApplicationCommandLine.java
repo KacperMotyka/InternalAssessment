@@ -19,6 +19,7 @@ public class ApplicationCommandLine {
 
     // MAIN
     public static void main(String[] args) {
+
         ApplicationCommandLine app = new ApplicationCommandLine();
     }
 
@@ -48,6 +49,8 @@ public class ApplicationCommandLine {
             }
         }
     }
+
+
     private static int menuChooseGame(){
         Scanner scanner = new Scanner(System.in);
         String massage = "" +

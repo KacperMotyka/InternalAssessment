@@ -11,7 +11,7 @@ import com.company.LOGIC.DataManager;
 
 public class MainApplication extends javafx.application.Application {
 
-    static DataManager dataManager;
+    public static DataManager dataManager;
 
     @Override
     public void init() throws Exception {
@@ -37,6 +37,7 @@ public class MainApplication extends javafx.application.Application {
         // save results
     }
 
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -46,4 +47,5 @@ public class MainApplication extends javafx.application.Application {
         DataDownloader.refreshData();
         dataManager = new DataManager();
     }
+
 }

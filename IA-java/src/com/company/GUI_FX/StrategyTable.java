@@ -1,7 +1,6 @@
 package com.company.GUI_FX;
 
 import javax.swing.*;
-
 import java.util.List;
 
 public class StrategyTable extends JTable {
@@ -41,12 +40,4 @@ public class StrategyTable extends JTable {
 		// add colors to table according to results
 		this.setDefaultRenderer(Object.class, render);
 	}
-	public void setVisible(Boolean a) {
-		this.setVisible(a);
-	}
-	public JTable getTable () {
-
-		return this;
-	}
-	
 }

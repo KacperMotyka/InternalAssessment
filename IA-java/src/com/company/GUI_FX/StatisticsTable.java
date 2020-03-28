@@ -1,7 +1,6 @@
 package com.company.GUI_FX;
 
 import com.company.LOGIC.Ball;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
@@ -30,9 +29,8 @@ public class StatisticsTable extends JTable {
                             ball.getLast10drawsWinning(),
                             ball.getLast5drawsWinning(),
                             ball.getIndexOfAcceleration()
-                    }
-            );
+                    });
         }
     }
-
 }
+

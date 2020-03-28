@@ -134,45 +134,31 @@ public class Controller implements Initializable {
                                 currentResults = currentGame.getBallStrategy1();
                                 createStatisticsJTable(statsJTable, currentResults, 1);
                                 createAndSetPredictionGrid(predictionGrid, currentResults, code);
-                                setCurrentStrategyProperty("Prediction 1 : Random choice from 20 MOST frequent");
-                        }
-                        break;
+                                setCurrentStrategyProperty("Prediction 1 : Random choice from 20 MOST frequent"); } break;
                         case "strat2" : {
                                 currentResults = currentGame.getBallStrategy2();
                                 createStatisticsJTable(statsJTable, currentResults, 2);
                                 createAndSetPredictionGrid(predictionGrid, currentResults, code);
-                                setCurrentStrategyProperty("Prediction 2 : Random choice from 20 LEAST frequent");
-                        }
-                        break;
+                                setCurrentStrategyProperty("Prediction 2 : Random choice from 20 LEAST frequent"); } break;
                         case "strat3" : {
                                 currentResults = currentGame.getBallStrategy3();
                                 createStatisticsJTable(statsJTable, currentResults, 3);
                                 createAndSetPredictionGrid(predictionGrid, currentResults, code);
-                                setCurrentStrategyProperty("Prediction 3 : Best IOA from 20 MOST frequent");
-                        }
-                        break;
+                                setCurrentStrategyProperty("Prediction 3 : Best IOA from 20 MOST frequent"); } break;
                         case "strat4" : {
                                 currentResults = currentGame.getBallStrategy4();
                                 createStatisticsJTable(statsJTable, currentResults, 4);
                                 createAndSetPredictionGrid(predictionGrid, currentResults, code);
-                                setCurrentStrategyProperty("Prediction 3 : Best IOA from 20 LEAST frequent");
-                        }
-                        break;
+                                setCurrentStrategyProperty("Prediction 3 : Best IOA from 20 LEAST frequent"); } break;
                         case "stat5" : {
                                 createStatisticsJTable(statsJTable, currentGame.getTwentyMostFrequentlyWinning(), 5);
-                                setCurrentStrategyProperty("Statistics for 20 MOST frequent numbers");
-                        }
-                        break;
+                                setCurrentStrategyProperty("Statistics for 20 MOST frequent numbers"); } break;
                         case "stat6" : {
                                 createStatisticsJTable(statsJTable, currentGame.twentyLeastFrequentlyWinning(), 6);
-                                setCurrentStrategyProperty("Statistics for 20 LEAST frequent numbers");
-                        }
-                        break;
+                                setCurrentStrategyProperty("Statistics for 20 LEAST frequent numbers");  } break;
                         case "stat7" : {
                                 createStatisticsJTable(statsJTable, currentGame.getBallStatistics(), 7);
-                                setCurrentStrategyProperty("Statistics for ALL numbers");
-                        }
-                        break;
+                                setCurrentStrategyProperty("Statistics for ALL numbers"); } break;
                 }
         }
 

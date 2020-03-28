@@ -1,13 +1,10 @@
-package com.company.DATA_ACCESS;
 
-import java.io.*;
+
+package com.company.DATA_ACCESS;
 
 public class DataDownloader {
 
-    // class attribute
-    public static String shellFilesPath = "../";
-
-    public static void refreshData()  {
+       public static void refreshData()  {
         String shellScriptName = "download.sh";
         String[] command = {"sh", shellScriptName};
         try {
@@ -21,3 +18,5 @@ public class DataDownloader {
         }
     }
 }
+
+
