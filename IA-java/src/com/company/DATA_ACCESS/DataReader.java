@@ -9,80 +9,72 @@ import java.util.ArrayList;
 
 public class DataReader {
 
+
     public static BufferedReader readFile (String filename){
+        FileReader simpleReader;
+        BufferedReader advancedReader;
+
+
         try  {
-            //FileReader reader = new FileReader(filename);
-            BufferedReader reader = new BufferedReader(new FileReader(filename));
-            return reader;
+            simpleReader = new FileReader(filename);
+            advancedReader = new BufferedReader(simpleReader);
+            return advancedReader;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+
         return null;
     }
 
 
-    public static ArrayList<String> parseFileContent (BufferedReader reader){
-        ArrayList<String> textliste = new ArrayList<>();
+
+    public static ArrayList<Draw> parseFileContent (BufferedReader reader){
+        ArrayList<Draw> drawHistory = new ArrayList<>();
         try  {
             String line = reader.readLine();
             while (line != null) {
-                textliste.add(line);
+                String[] columns = line.split(" ");
+                Draw draw = convertColumnsToDraw(columns);
+                drawHistory.add(draw);
                 line = reader.readLine();
             }
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-        return textliste;
+        return drawHistory;
     }
 
 
-    public  static ArrayList<Draw> convertStringArrayToDrawHistory(ArrayList<String> textliste) {
-        ArrayList<Draw> history = new ArrayList<Draw>();
-        for (String line : textliste){
-            String[] columns = line.split(" ");
-            Draw draw = convertTEXTToDraw(columns);
-            history.add(draw);
-        }
-        return history;
-    }
 
-    private static Draw convertTEXTToDraw(String[] elements) {
+    private static Draw convertColumnsToDraw(String[] columns) {
         String col1;
         int id = -1;
         String date = "";
         String[] textResults = {};
         Draw draw;
 
-
         try {
-            col1 = elements[0].replace('.', ' ').trim();
+            col1 = columns[0].replace('.', ' ').trim();
             id = Integer.parseInt(col1);
-            date =  elements[1];
-            textResults = elements[2].split(",");
+            date =  columns[1];
+            textResults = columns[2].split(",");
+            ArrayList<Integer> numericResults = new ArrayList<Integer>();
+            if (textResults.length>0) {
+                int len = textResults.length;
+                for (int i = 0; i < len; i++) {
+                    numericResults.add(Integer.parseInt(textResults[i]));
+                }
+            }
+            draw = new Draw(id, date, numericResults);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Problem parsing Id, data or results ");
+            System.out.println("Problem create new draw id " + id);
+            return null;
         }
-
-        ArrayList<Integer> numericResults = new ArrayList<Integer>();
-        if (textResults != null) {
-            int len = textResults.length;
-            for (int i = 0; i < len; i++) {
-                numericResults.add(Integer.parseInt(textResults[i]));
-            }
-        }
-            //System.out.println(" numericResults " + numericResults.toString());
-
-
-            try {
-                draw = new Draw(id, date, numericResults);
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("Problem create new draw id " + id);
-                return null;
-            }
-            return draw;
+        return draw;
     }
 
 }
+

@@ -250,9 +250,9 @@ public class Game {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    //    Most Frequent Random
-    //    From the 20 most frequently winning numbers program will randomly choose a set of numbers,
-    //    containing 6 numbers each for Lotto and ... numbers each for EuroJackpot.
+     //   Most Frequent Random
+     //   From the 20 most frequently winning numbers program will randomly choose a set of numbers,
+     //   containing 6 numbers each for Lotto and ... numbers each for EuroJackpot.
 
     public ArrayList<Ball> calculateStrategy1(){
         ArrayList<Ball> twentyMost = (ArrayList<Ball>)this.twentyMostFrequentlyWinning.clone();
@@ -269,7 +269,7 @@ public class Game {
 
 
 
-    //    Least Frequent Random
+    //    Least Frequent Random :
     //    From the 20 least frequently winning program will randomly choose a set of numbers,
     //    containing 6 numbers each.
 

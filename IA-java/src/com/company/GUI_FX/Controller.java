@@ -13,9 +13,10 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.SwingUtilities;
+import javax.swing.JComponent;
+import javax.swing.JScrollPane;
+import java.awt.EventQueue;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
