@@ -190,12 +190,12 @@ public class Controller implements Initializable {
                 createStatisticsJTable(statsJTable, currentResults, 1);
 
                 //// SET DEFAULT IMMAGE for DEFAULT GAME :  LOTTO.PNG  /////
-                File file2 = new File("img/lotto.png");
+                File file2 = new File("ressources/img/lotto.png");
                 Image image2 = new Image(file2.toURI().toString());
                 currentLogo.setImage(image2);
 
                 //// SET LOGO IMMAGE  /////
-                File file = new File("img/million.png");
+                File file = new File("ressources/img/million.png");
                 Image image = new Image(file.toURI().toString());
                 logo.setImage(image);
         }

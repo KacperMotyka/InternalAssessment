@@ -22,15 +22,15 @@ public class DataManager {
         // DataDownloader.refreshData();
 
         // READ DATA
-        String fileNameOne = "lotto-history.txt";
+        String fileNameOne = "ressources/lotto-history.txt";
         BufferedReader lottoFile = DataReader.readFile (fileNameOne);
         ArrayList<Draw> lottoHistory = DataReader.parseFileContent (lottoFile);
 
-        String fileNameTwo = "mini-lotto-history.txt";
+        String fileNameTwo = "ressources/mini-lotto-history.txt";
         BufferedReader miniLottoFile = DataReader.readFile (fileNameTwo);
         ArrayList<Draw> miniLottoHistory = DataReader.parseFileContent (miniLottoFile);
 
-        String fileName3 = "multi-lotto-history.txt";
+        String fileName3 = "ressources/multi-lotto-history.txt";
         BufferedReader multiLottoFile = DataReader.readFile (fileName3);
         ArrayList<Draw> multiLottoHistory = DataReader.parseFileContent (multiLottoFile);
 
@@ -41,7 +41,7 @@ public class DataManager {
 
         Draw draw1 = new Draw(1, "21-02-2020", new ArrayList<Integer> (Arrays.asList(1,2,7,11,34,16)));
         Draw draw2 = new Draw(2, "28-02-2020", new ArrayList<Integer> (Arrays.asList(1,22,17,12,24,36)));
-        Draw draw3 = new Draw(3, "25-03-2020", new ArrayList<Integer> (Arrays.asList(9,23,5,11,37,6)));
+        Draw draw3 = new Draw(3, "27-03-2020", new ArrayList<Integer> (Arrays.asList(9,23,5,11,37,6)));
 
         this.euroJack = new Game ("Euro Jack", "../../../../img/euroJack.png", "30-12-2000", 49, 6, new ArrayList<Draw>(Arrays.asList(draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3, draw1, draw2, draw3)));
 
