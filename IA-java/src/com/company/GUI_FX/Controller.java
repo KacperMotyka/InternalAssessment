@@ -27,7 +27,7 @@ public class Controller implements Initializable {
 
         static Game currentGame;
         static List<Ball> currentResults;
-
+        boolean updated;
         private StringProperty currentGameProperty = new SimpleStringProperty();
         private StringProperty currentStrategyProperty = new SimpleStringProperty();
 
@@ -68,8 +68,8 @@ public class Controller implements Initializable {
 
         @Override
         public void initialize(URL location, ResourceBundle resources) {
-
-        setDefaultResults();
+                updated = false;
+                setDefaultResults();
 
         }
 
@@ -81,7 +81,10 @@ public class Controller implements Initializable {
 
         @FXML
         void refreshDataButton(ActionEvent event) {
-                //MainApplication.refreshModel();
+                if (updated == false){
+                        MainApplication.refreshModel();
+                        updated = true;
+                }
                 setDefaultResults();
         }
 
